@@ -1,9 +1,9 @@
-import Modal from 'components/common/Modal';
+import ReservationModal from './modal/ReservationModal';
 
 function App() {
   return (
     <div className="App">
-      <Modal isDim position="CENTER" padding="30px" borderRadius="30px" />
+      <ReservationModal />
     </div>
   );
 }
