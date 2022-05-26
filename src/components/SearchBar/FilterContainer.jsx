@@ -9,9 +9,7 @@ export default FilterContainer;
 
 const Container = styled.div`
   position: relative;
-  display: flex;
   flex: ${({ type }) => (type === 'Schedule' ? 2 : 1.5)};
-  align-items: center;
   width: 100%;
   height: 100%;
   padding: 0 24px;

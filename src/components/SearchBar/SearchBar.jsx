@@ -21,8 +21,10 @@ export default SearchBar;
 function Schedule() {
   return (
     <FilterContainer type="Schedule">
-      <FilterBox title="체크인" placeholder="날짜입력" value="" />
-      <FilterBox title="체크아웃" placeholder="날짜입력" value="" />
+      <Button type="button">
+        <FilterBox title="체크인" placeholder="날짜입력" value="" />
+        <FilterBox title="체크아웃" placeholder="날짜입력" value="" />
+      </Button>
       <FilterResetButton />
     </FilterContainer>
   );
@@ -31,7 +33,9 @@ function Schedule() {
 function Price() {
   return (
     <FilterContainer type="Price">
-      <FilterBox title="요금" placeholder="금액대 설정" value="" />
+      <Button type="button">
+        <FilterBox title="요금" placeholder="금액대 설정" value="" />
+      </Button>
       <FilterResetButton />
     </FilterContainer>
   );
@@ -39,7 +43,9 @@ function Price() {
 function Guest() {
   return (
     <FilterContainer type="Guest">
-      <FilterBox title="인원" placeholder="게스트 추가" value="" />
+      <Button type="button">
+        <FilterBox title="인원" placeholder="게스트 추가" value="" />
+      </Button>
       <FilterResetButton />
     </FilterContainer>
   );
@@ -56,4 +62,11 @@ const LargeContainer = styled.div`
   border-radius: 60px;
   border: 1px solid ${COLOR.GREY[300]};
   background: ${COLOR.WHITE};
+`;
+
+const Button = styled.button`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
 `;

@@ -12,6 +12,7 @@ import { ReactComponent as Search } from 'assets/search.svg';
 import { ReactComponent as Star } from 'assets/star.svg';
 import { ReactComponent as User } from 'assets/user.svg';
 import { ReactComponent as XCircle } from 'assets/x-circle.svg';
+import styled from 'styled-components';
 
 const iconComponents = {
   check: Check,
@@ -30,16 +31,20 @@ const iconComponents = {
   xCircle: XCircle,
 };
 
-function IconButton({ icon, width, height, fill, stroke, clickHandler, disabled }) {
+function IconButton({ icon, width, height, fill, stroke, clickHandler, disabled, css }) {
   const Icon = iconComponents[icon];
   if (!Icon) {
     throw new Error(`${icon} 컴포넌트를 찾을 수 없습니다. `);
   }
   return (
-    <button type="button" onClick={clickHandler} disabled={disabled}>
+    <Button type="button" onClick={clickHandler} disabled={disabled} css={css}>
       <Icon width={width} height={height} fill={fill} stroke={stroke} />
-    </button>
+    </Button>
   );
 }
 
 export default IconButton;
+
+const Button = styled.button`
+  ${({ css }) => css && css};
+`;
