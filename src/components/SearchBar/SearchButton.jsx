@@ -1,20 +1,26 @@
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
-import { ReactComponent as SearchIcon } from 'assets/search.svg';
+import IconButton from 'components/IconButton';
 
 function SearchButton({ searchBarType }) {
   return (
     <SearchBtn searchBarType={searchBarType}>
-      <Icon />
-      {/* 검색 모달창 활성화 했을때만 <span>검색</span> */}
+      <IconButton
+        icon="search"
+        width={searchBarType === 'mini' ? '16' : '24'}
+        height={searchBarType === 'mini' ? '16' : '24'}
+        fill="none"
+        stroke={COLOR.WHITE}
+      />
+      {searchBarType !== 'mini' && <Text>검색</Text>}
     </SearchBtn>
   );
 }
 
 export default SearchButton;
 
-const SearchBtn = styled.button`
+const SearchBtn = styled.span`
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -25,14 +31,18 @@ const SearchBtn = styled.button`
   height: ${({ searchBarType }) => (searchBarType === 'mini' ? '32px' : '42px')};
   padding: 0 8px;
   border-radius: 32px;
+  background: ${COLOR.PRIMARY};
+
+  > button {
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+  }
+`;
+
+const Text = styled.div`
+  flex-shrink: 0;
   font-size: ${FONT.SIZE.LARGE};
   font-weight: ${FONT.WEIGHT.MEDIUM};
   color: ${COLOR.WHITE};
-  background: ${COLOR.PRIMARY};
-`;
-
-const Icon = styled(SearchIcon)`
-  path {
-    stroke: ${COLOR.WHITE};
-  }
 `;

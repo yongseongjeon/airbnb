@@ -1,21 +1,34 @@
 import styled from 'styled-components';
-import { ReactComponent as Menu } from 'assets/menu.svg';
-import { ReactComponent as User } from 'assets/user.svg';
 import COLOR from 'styles/colors';
 import { useState } from 'react';
 import { BOX_SHADOW } from 'styles/utils';
+import IconButton from 'components/IconButton';
 
 function AccountMenu() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <AccountBox>
       <AccountBtn onClick={() => setIsOpen(!isOpen)}>
-        <MenuIcon>
-          <Menu />
-        </MenuIcon>
-        <UserIcon>
-          <User />
-        </UserIcon>
+        <IconBox>
+          <IconButton
+            icon="menu"
+            width="16"
+            height="16"
+            fill="none"
+            stroke={COLOR.BLACK}
+            disabled
+          />
+        </IconBox>
+        <IconBox className="user">
+          <IconButton
+            icon="user"
+            width="16"
+            height="16"
+            fill="none"
+            stroke={COLOR.WHITE}
+            disabled
+          />
+        </IconBox>
         <span hidden>account menu</span>
       </AccountBtn>
       {isOpen ? (
@@ -33,7 +46,7 @@ const AccountBox = styled.div`
   position: relative;
 `;
 
-const AccountBtn = styled.button`
+const AccountBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,26 +57,24 @@ const AccountBtn = styled.button`
   border-radius: 30px;
   border: 1px solid ${COLOR.GREY[300]};
   background: ${COLOR.WHITE};
+  cursor: pointer;
 `;
 
-const UserIcon = styled.span`
+const IconBox = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: ${COLOR.GREY[400]};
 
-  path {
-    stroke: #ffffff;
+  &.user {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: ${COLOR.GREY[400]};
   }
-`;
 
-const MenuIcon = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  button {
+    font-size: 0;
+  }
 `;
 
 const MenuList = styled.ul`
