@@ -30,14 +30,14 @@ const iconComponents = {
   xCircle: XCircle,
 };
 
-function IconButton({ icon, fill, stroke, clickHandler, disabled }) {
+function IconButton({ icon, width, height, fill, stroke, clickHandler, disabled }) {
   const Icon = iconComponents[icon];
   if (!Icon) {
     throw new Error(`${icon} 컴포넌트를 찾을 수 없습니다. `);
   }
   return (
     <button type="button" onClick={clickHandler} disabled={disabled}>
-      <Icon fill={fill} stroke={stroke} />
+      <Icon width={width} height={height} fill={fill} stroke={stroke} />
     </button>
   );
 }

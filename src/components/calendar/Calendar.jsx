@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import SearchBarModal from 'components/modal/SearchBarModal';
 import Month from 'components/calendar/Month';
 import IconButton from 'components/IconButton';
+import COLOR from 'styles/colors';
 
 function Calendar() {
   const [curYear, curMonth, curLastDay] = getYearMonthLastDay(new Date());
@@ -11,8 +12,15 @@ function Calendar() {
   return (
     <SearchBarModal padding="64px 88px" borderRadius="40px">
       <Header>
-        <IconButton icon="prev" fill="none" stroke="red" disabled={isDisplayedCurMonth} />
-        <IconButton icon="next" fill="none" />
+        <IconButton
+          icon="prev"
+          width="24"
+          height="24"
+          fill="none"
+          stroke={COLOR.BLACK}
+          disabled={isDisplayedCurMonth}
+        />
+        <IconButton icon="next" width="24" height="24" fill="none" stroke={COLOR.BLACK} />
       </Header>
       <Months>
         <Month year={curYear} month={curMonth} lastDay={curLastDay} />
