@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import { BOX_SHADOW } from 'styles/utils';
 
-function SearchBarModal({ padding, children }) {
+function SearchBarModal({ borderRadius, padding, children }) {
   return (
     <Wrap>
-      <Contents padding={padding}>{children}</Contents>
+      <Contents borderRadius={borderRadius} padding={padding}>
+        {children}
+      </Contents>
     </Wrap>
   );
 }
@@ -17,8 +19,10 @@ const Wrap = styled.div`
 `;
 
 const Contents = styled.div`
+  width: fit-content;
   background: ${COLOR.WHITE};
   padding: ${({ padding }) => padding};
+  border-radius: ${({ borderRadius }) => borderRadius};
   border-radius: '40px';
   ${BOX_SHADOW[100]}
 `;
