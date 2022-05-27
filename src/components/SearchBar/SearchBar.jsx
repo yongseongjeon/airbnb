@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import Calendar from 'components/calendar/Calendar';
+import { FilterContext } from 'store/FilterContext';
 import FilterResetButton from './FilterResetButton';
 import FilterBox from './FilterBox';
 import FilterContainer from './FilterContainer';
@@ -34,11 +35,21 @@ function ActiveModal({ activeModalName }) {
 }
 
 function Schedule({ setActiveModal }) {
+  const { checkIn, checkOut } = useContext(FilterContext);
+
   return (
     <FilterContainer type="Schedule">
       <Button type="button" onClick={() => setActiveModal('CALENDAR')}>
-        <FilterBox title="체크인" placeholder="날짜입력" value="" />
-        <FilterBox title="체크아웃" placeholder="날짜입력" value="" />
+        <FilterBox
+          title="체크인"
+          placeholder="날짜입력"
+          value={checkIn && `${checkIn.month}월 ${checkIn.day}일`}
+        />
+        <FilterBox
+          title="체크아웃"
+          placeholder="날짜입력"
+          value={checkOut && `${checkOut.month}월 ${checkOut.day}일`}
+        />
       </Button>
       <FilterResetButton />
     </FilterContainer>

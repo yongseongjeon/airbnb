@@ -1,6 +1,6 @@
 import Header from 'components/Header';
 import Banner from 'components/Banner';
-import FilterProvider from 'store/FilterContext';
+import { FilterProvider } from 'store/FilterContext';
 
 function App() {
   return (
