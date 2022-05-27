@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { useState } from 'react';
 import styled from 'styled-components';
 import SearchBarModal from 'components/modal/SearchBarModal';
 import Month from 'components/calendar/Month';
@@ -5,8 +7,11 @@ import IconButton from 'components/IconButton';
 import COLOR from 'styles/colors';
 
 function Calendar() {
-  const [curYear, curMonth, curLastDay] = getYearMonthLastDay(new Date());
-  const [nextYear, nextMonth, nextLastDay] = getYearMonthLastDay(getNextMonthDate());
+  const [date, setDate] = useState(getYearMonthLastDay(new Date()));
+  const [curYear, curMonth, curLastDay] = date;
+  const [nextYear, nextMonth, nextLastDay] = getYearMonthLastDay(
+    getNextMonthDate(curYear, curMonth),
+  );
   const isDisplayedCurMonth = curMonth === new Date().getMonth() + 1;
 
   return (
@@ -19,8 +24,16 @@ function Calendar() {
           fill="none"
           stroke={COLOR.BLACK}
           disabled={isDisplayedCurMonth}
+          clickHandler={() => setDate(getYearMonthLastDay(new Date(curYear, curMonth - 3)))}
         />
-        <IconButton icon="next" width="24" height="24" fill="none" stroke={COLOR.BLACK} />
+        <IconButton
+          icon="next"
+          width="24"
+          height="24"
+          fill="none"
+          stroke={COLOR.BLACK}
+          clickHandler={() => setDate(getYearMonthLastDay(new Date(curYear, curMonth + 1)))}
+        />
       </Header>
       <Months>
         <Month year={curYear} month={curMonth} lastDay={curLastDay} />
@@ -30,10 +43,8 @@ function Calendar() {
   );
 }
 
-function getNextMonthDate() {
-  const date = new Date();
-  date.setMonth(date.getMonth() + 1);
-  return date;
+function getNextMonthDate(year, month) {
+  return new Date(year, month);
 }
 
 function getYearMonthLastDay(date) {

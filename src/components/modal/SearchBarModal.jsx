@@ -15,7 +15,9 @@ function SearchBarModal({ borderRadius, padding, children }) {
 export default SearchBarModal;
 
 const Wrap = styled.div`
-  position: relative;
+  position: absolute;
+  top: calc(100% + 16px);
+  right: 0;
 `;
 
 const Contents = styled.div`

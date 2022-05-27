@@ -31,7 +31,7 @@ const iconComponents = {
   xCircle: XCircle,
 };
 
-function IconButton({ icon, width, height, fill, stroke, clickHandler, disabled, css }) {
+function IconButton({ icon, width, height, fill, stroke, clickHandler, disabled, css = '' }) {
   const Icon = iconComponents[icon];
   if (!Icon) {
     throw new Error(`${icon} 컴포넌트를 찾을 수 없습니다. `);
@@ -46,5 +46,5 @@ function IconButton({ icon, width, height, fill, stroke, clickHandler, disabled,
 export default IconButton;
 
 const Button = styled.button`
-  ${({ css }) => css && css};
+  ${({ css }) => css};
 `;

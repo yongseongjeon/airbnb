@@ -1,10 +1,15 @@
-import ReservationModal from './modal/ReservationModal';
+import Header from 'components/Header';
+import Banner from 'components/Banner';
+import FilterProvider from 'store/FilterContext';
 
 function App() {
   return (
-    <div className="App">
-      <ReservationModal />
-    </div>
+    <FilterProvider>
+      <div className="App">
+        <Header pageType="main" />
+        <Banner />
+      </div>
+    </FilterProvider>
   );
 }
 
