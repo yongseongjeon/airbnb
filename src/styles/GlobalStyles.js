@@ -119,6 +119,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     width: 100%;
     letter-spacing: -0.4px;
+    font-family: 'Noto Sans KR', sans-serif;
   }
 
   ol,
