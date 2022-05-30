@@ -50,7 +50,13 @@ function Day({ year, month, day }) {
 export default Day;
 
 const StyledDay = styled.button`
+  width: 48px;
+  height: 48px;
   margin: auto auto;
   font-weight: ${FONT.WEIGHT.MEDIUM};
+  border-radius: 30px;
   color: ${({ isDatePast }) => (isDatePast ? COLOR.GREY[300] : COLOR.GREY[600])};
+  :hover {
+    border: ${({ isDatePast }) => (isDatePast ? '' : `1px solid ${COLOR.GREY[600]}`)};
+  }
 `;
