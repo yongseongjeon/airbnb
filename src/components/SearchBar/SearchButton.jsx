@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
 import IconButton from 'components/IconButton';
+import Z_INDEX from 'styles/zIndex';
 
 function SearchButton({ searchBarType }) {
   return (
@@ -21,6 +22,7 @@ function SearchButton({ searchBarType }) {
 export default SearchButton;
 
 const SearchBtn = styled.span`
+  z-index: ${Z_INDEX.SEARCH_BTN};
   flex-shrink: 0;
   display: flex;
   align-items: center;
