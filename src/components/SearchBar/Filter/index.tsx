@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { FilterContext } from 'store/FilterContext';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import Z_INDEX from 'styles/zIndex';
@@ -11,21 +13,38 @@ interface FilterProps {
     value: string;
     placeholder: string;
   }[];
+  activeModalName: string;
   modalName: string;
   setActiveModal: (modalName: string) => void;
 }
 
-function Filter({ type, filterContents, modalName, setActiveModal }: FilterProps) {
+function Filter({ type, filterContents, modalName, activeModalName, setActiveModal }: FilterProps) {
+  const { setCheckIn, setCheckOut } = useContext(FilterContext);
   return (
     <Container type={type}>
-      <Button type="button" onClick={() => setActiveModal(modalName)}>
+      <Button type="button" onClick={handleClickedBtn}>
         {filterContents.map(({ title, value, placeholder }) => (
           <FilterBox key={title} title={title} value={value} placeholder={placeholder} />
         ))}
       </Button>
-      <FilterResetButton />
+      <FilterResetButton clickHandler={handleResetBtn} />
     </Container>
   );
+
+  function handleClickedBtn() {
+    if (modalName === activeModalName) {
+      setActiveModal('NOTHING');
+      return;
+    }
+    setActiveModal(modalName);
+  }
+
+  function handleResetBtn() {
+    if (modalName === 'CALENDAR') {
+      setCheckIn(null);
+      setCheckOut(null);
+    }
+  }
 }
 
 export default Filter;
