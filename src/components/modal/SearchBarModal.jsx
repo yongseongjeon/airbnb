@@ -3,15 +3,20 @@ import COLOR from 'styles/colors';
 import { BOX_SHADOW } from 'styles/utils';
 import Z_INDEX from 'styles/zIndex';
 
-function SearchBarModal({ borderRadius, padding, children }) {
+function SearchBarModal({ borderRadius, padding, children, setActiveModal }) {
+  // TODO: setActiveModal props drilling 개선
   return (
     <Wrap>
-      <Dim onClick={() => console.log('dim찍힘')} />
+      <Dim onClick={handleClickedDim} />
       <Contents borderRadius={borderRadius} padding={padding}>
         {children}
       </Contents>
     </Wrap>
   );
+
+  function handleClickedDim() {
+    setActiveModal('NOTHING');
+  }
 }
 
 export default SearchBarModal;
@@ -23,7 +28,6 @@ const Dim = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: red;
   opacity: 0.5;
 `;
 

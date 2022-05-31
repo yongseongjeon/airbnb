@@ -13,25 +13,24 @@ function SearchBar() {
 
   return (
     <LargeContainer>
-      <Schedule setActiveModal={setActiveModal} />
+      <Schedule activeModalName={activeModalName} setActiveModal={setActiveModal} />
       <Price setActiveModal={setActiveModal} />
       <Guest setActiveModal={setActiveModal} />
       <SearchButton />
-      <ActiveModal activeModalName={activeModalName} />
+      <ActiveModal activeModalName={activeModalName} setActiveModal={setActiveModal} />
     </LargeContainer>
   );
 }
 
 export default SearchBar;
 
-function ActiveModal({ activeModalName }) {
+function ActiveModal({ activeModalName, setActiveModal }) {
   if (activeModalName === 'NOTHING') {
     return null;
   }
   if (activeModalName === 'CALENDAR') {
-    return <Calendar />;
+    return <Calendar setActiveModal={setActiveModal} />;
   }
-  // TODO: PRICE
   if (activeModalName === 'PRICE') {
     return <PriceModal />;
   }
