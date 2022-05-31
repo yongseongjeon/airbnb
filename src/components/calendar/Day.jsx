@@ -1,36 +1,35 @@
 /* eslint-disable operator-linebreak */
-import styled from 'styled-components';
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable @typescript-eslint/no-shadow */
+import styled, { css } from 'styled-components';
 import FONT from 'styles/font';
 import COLOR from 'styles/colors';
 import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
 
 function Day({ year, month, day }) {
-  const calendarDateTime = new Date(year, month - 1, day).getTime();
-  const curDateTime = new Date().getTime();
-  const isDatePast = curDateTime > calendarDateTime;
   const { checkIn, setCheckIn, checkOut, setCheckOut } = useContext(FilterContext);
-  const isSelected =
-    isEqualDate(checkIn, { year, month, day }) || isEqualDate(checkOut, { year, month, day });
+  const DEFAULT_CHECK_IN = { year: 9999, month: 0, day: 0 };
+  const DEFAULT_CHECK_OUT = { year: 0, month: 0, day: 0 };
+  const checkInDate = getDate(checkIn || DEFAULT_CHECK_IN);
+  const checkOutDate = getDate(checkOut || DEFAULT_CHECK_OUT);
+  const calendarDate = new Date(year, month - 1, day);
 
-  function isEqualDate(date1, date2) {
-    if (date1?.year !== date2.year) {
-      return false;
-    }
-    if (date1?.month !== date2.month) {
-      return false;
-    }
-    if (date1?.day !== date2.day) {
-      return false;
-    }
-    return true;
-  }
+  const isBetweenCheckInAndCheckOut = checkInDate <= calendarDate && calendarDate <= checkOutDate;
+  const isCheckIn = isEqualDate(checkIn, { year, month, day });
+  const isCheckOut = isEqualDate(checkOut, { year, month, day });
+  const isSelected = isCheckIn || isCheckOut;
+  const isPastDate = getCurDate() > calendarDate;
 
   return (
     <StyledDay
-      disabled={isDatePast}
+      disabled={isPastDate}
       isSelected={isSelected}
-      isDatePast={isDatePast}
+      isPastDate={isPastDate}
+      isBetweenCheckInAndCheckOut={isBetweenCheckInAndCheckOut}
+      isCheckIn={isCheckIn}
+      isCheckOut={isCheckOut}
+      day={day}
       onClick={handleClickedDay}
     >
       {day}
@@ -39,46 +38,88 @@ function Day({ year, month, day }) {
 
   function handleClickedDay() {
     const curDate = { year, month, day };
-    const isEmptyCheckInOut = !checkIn && !checkOut;
-    const isEmptyCheckOut = !checkOut;
+    const hasCheckIn = checkIn;
+    const hasCheckOut = checkOut;
+    const isBeforeCheckIn = calendarDate < checkInDate;
 
-    if (isEmptyCheckInOut) {
+    if (!hasCheckIn) {
       setCheckIn(curDate);
       return;
     }
-    if (isEmptyCheckOut) {
-      setCheckOut(curDate);
-      return;
-    }
-
-    const checkInDate = new Date(checkIn.year, checkIn.month - 1, checkIn.day);
-    const checkInDateTime = checkInDate.getTime();
-    const isBeforeCheckInSelected = calendarDateTime <= checkInDateTime;
-    const isAfterCheckInSelected = calendarDateTime > checkInDateTime;
-
-    if (isBeforeCheckInSelected) {
+    if (isBeforeCheckIn) {
       setCheckIn(curDate);
       setCheckOut(null);
       return;
     }
-    if (isAfterCheckInSelected) {
+    if (!hasCheckOut) {
       setCheckOut(curDate);
+      return;
     }
+    setCheckOut(curDate);
   }
+}
+
+function getCurDate() {
+  const date = new Date();
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+}
+
+function getDate({ year, month, day }) {
+  const dates = Object.entries({ year, month: month - 1, day }).map((x) => x[1]);
+  return new Date(...dates);
+}
+
+function isEqualDate(date1, date2) {
+  if (date1?.year !== date2.year) {
+    return false;
+  }
+  if (date1?.month !== date2.month) {
+    return false;
+  }
+  if (date1?.day !== date2.day) {
+    return false;
+  }
+  return true;
 }
 
 export default Day;
 
+const DAY_SIZE_CSS = css`
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  border-radius: 100%;
+`;
+
 const StyledDay = styled.button`
+  position: relative;
   width: 48px;
   height: 48px;
   margin: auto auto;
   font-weight: ${FONT.WEIGHT.MEDIUM};
-  border-radius: 30px;
-  color: ${({ isDatePast }) => isDatePast && COLOR.GREY[300]};
+  color: ${({ isPastDate }) => isPastDate && COLOR.GREY[300]};
   color: ${({ isSelected }) => isSelected && COLOR.WHITE};
-  background-color: ${({ isSelected }) => isSelected && COLOR.GREY[600]};
+  background-color: ${({ isBetweenCheckInAndCheckOut }) =>
+    isBetweenCheckInAndCheckOut && COLOR.GREY[100]};
+  border-radius: ${({ isCheckIn }) => isCheckIn && '100% 0 0 100%'};
+  border-radius: ${({ isCheckOut }) => isCheckOut && '0 100% 100% 0'};
+
+  ::after {
+    ${DAY_SIZE_CSS}
+    content: ${({ day, isSelected }) => isSelected && `"${day}"`};
+    background-color: ${({ isSelected }) => isSelected && COLOR.GREY[600]};
+  }
+
   :hover {
-    border: ${({ isDatePast }) => !isDatePast && `1px solid ${COLOR.GREY[600]}`};
+    ::before {
+      ${DAY_SIZE_CSS}
+      content: ${({ isPastDate }) => !isPastDate && '"  "'};
+      font-weight: ${FONT.WEIGHT.MEDIUM};
+      border: 1px solid ${COLOR.GREY[600]};
+    }
   }
 `;

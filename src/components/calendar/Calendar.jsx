@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable operator-linebreak */
 import { useState } from 'react';
 import styled from 'styled-components';
 import SearchBarModal from 'components/modal/SearchBarModal';
@@ -12,7 +12,6 @@ function Calendar() {
   const [nextYear, nextMonth, nextLastDay] = getYearMonthLastDay(
     getNextMonthDate(curYear, curMonth),
   );
-  const isDisplayedCurMonth = curMonth === new Date().getMonth() + 1;
 
   return (
     <SearchBarModal padding="64px 88px" borderRadius="40px">
@@ -23,7 +22,6 @@ function Calendar() {
           height="24"
           fill="none"
           stroke={COLOR.BLACK}
-          disabled={isDisplayedCurMonth}
           clickHandler={() => setDate(getYearMonthLastDay(new Date(curYear, curMonth - 3)))}
         />
         <IconButton
