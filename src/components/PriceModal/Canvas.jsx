@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useRef } from 'react';
 import { FilterContext } from 'store/FilterContext';
 import COLOR from 'styles/colors';
