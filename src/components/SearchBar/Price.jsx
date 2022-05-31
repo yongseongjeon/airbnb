@@ -1,6 +1,6 @@
 import Filter from './Filter';
-// TODO: PRICE 모달 setActiveModal
-function Price(/* { setActiveModal } */) {
+
+function Price({ setActiveModal }) {
   const filterContests = [
     {
       title: '요금',
@@ -13,7 +13,7 @@ function Price(/* { setActiveModal } */) {
       type="Price"
       filterContents={filterContests}
       modalName="PRICE"
-      // setActiveModal={ setActiveModal }
+      setActiveModal={setActiveModal}
     />
   );
 }

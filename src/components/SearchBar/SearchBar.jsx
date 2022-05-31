@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import Calendar from 'components/calendar/Calendar';
+import PriceModal from 'components/PriceModal';
 import SearchButton from './SearchButton';
 import Schedule from './Schedule';
 import Price from './Price';
@@ -31,6 +32,9 @@ function ActiveModal({ activeModalName }) {
     return <Calendar />;
   }
   // TODO: PRICE
+  if (activeModalName === 'PRICE') {
+    return <PriceModal />;
+  }
   // TODO: GUEST
   throw new Error(`해당하는 ${activeModalName}모달창이 존재하지 않습니다.`);
 }

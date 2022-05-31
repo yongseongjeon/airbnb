@@ -36,7 +36,6 @@ const Container = styled.div`
   flex: ${(props: { type: string }) => (props.type === 'Schedule' ? 2 : 1.5)};
   width: 100%;
   height: 100%;
-  padding: 16px 24px;
   border-radius: 60px;
   &:hover {
     background: ${COLOR.GREY[100]};
@@ -58,5 +57,6 @@ const Button = styled.button`
   display: flex;
   align-items: center;
   width: 100%;
+  padding: 16px 24px;
   text-align: left;
 `;
