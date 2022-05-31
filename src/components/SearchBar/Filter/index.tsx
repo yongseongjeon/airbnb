@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
 import styled from 'styled-components';
@@ -19,7 +20,7 @@ interface FilterProps {
 }
 
 function Filter({ type, filterContents, modalName, activeModalName, setActiveModal }: FilterProps) {
-  const { setCheckIn, setCheckOut } = useContext(FilterContext);
+  const { checkIn, checkOut, setCheckIn, setCheckOut } = useContext(FilterContext);
   return (
     <Container type={type}>
       <Button type="button" onClick={handleClickedBtn}>
@@ -27,9 +28,18 @@ function Filter({ type, filterContents, modalName, activeModalName, setActiveMod
           <FilterBox key={title} title={title} value={value} placeholder={placeholder} />
         ))}
       </Button>
-      <FilterResetButton clickHandler={handleResetBtn} />
+      <ResetBtn />
     </Container>
   );
+
+  function ResetBtn() {
+    const hasCheckInAndCheckOut = checkIn && checkOut;
+    if (modalName === 'CALENDAR' && hasCheckInAndCheckOut) {
+      return <FilterResetButton clickHandler={handleResetBtn} />;
+    }
+    // TODO: Price, Guest 분기 처리
+    return null;
+  }
 
   function handleClickedBtn() {
     if (modalName === activeModalName) {
