@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
-import Calendar from 'components/calendar/Calendar';
+import Calendar from 'components/Calendar/Calendar';
 import PriceModal from 'components/PriceModal';
 import SearchButton from './SearchButton';
 import Schedule from './Schedule';
