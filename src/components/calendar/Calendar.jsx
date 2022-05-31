@@ -1,8 +1,8 @@
 /* eslint-disable operator-linebreak */
 import { useState } from 'react';
 import styled from 'styled-components';
-import SearchBarModal from 'components/modal/SearchBarModal';
-import Month from 'components/calendar/Month';
+import SearchBarModal from 'components/Modal/SearchBarModal';
+import Month from 'components/Calendar/Month';
 import IconButton from 'components/IconButton';
 import COLOR from 'styles/colors';
 

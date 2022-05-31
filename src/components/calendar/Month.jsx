@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import DaysWrap from 'components/calendar/DaysWrap';
+import DaysWrap from 'components/Calendar/DaysWrap';
 import FONT from 'styles/font';
 
 function Month({ year, month, lastDay }) {

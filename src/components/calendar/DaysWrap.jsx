@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Day from 'components/calendar/Day';
+import Day from 'components/Calendar/Day';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
 
