@@ -13,7 +13,7 @@ function GuestModal() {
     <SearchBarModal padding="64px" borderRadius="40px">
       <Wrap>
         {GUEST_SETTING_FORMS.map(({ type, title, titleInfo }) => (
-          <GuestSettingForm type={type} title={title} titleInfo={titleInfo} />
+          <GuestSettingForm key={type} type={type} title={title} titleInfo={titleInfo} />
         ))}
       </Wrap>
     </SearchBarModal>
