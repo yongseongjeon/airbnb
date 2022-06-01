@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable max-len */
 /* eslint-disable react/no-unstable-nested-components */
 import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
@@ -18,7 +20,9 @@ interface FilterProps {
 }
 
 function Filter({ type, filterContents, modalName }: FilterProps) {
-  const { schedule, scheduleDispatch, activeModalName, modalDispatch } = useContext(FilterContext);
+  const { guest, guestDispatch, schedule, scheduleDispatch, activeModalName, modalDispatch } =
+    useContext(FilterContext);
+  const { adult, child, infant } = guest;
   const { checkIn, checkOut } = schedule;
 
   return (
@@ -34,7 +38,11 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
 
   function ResetBtn() {
     const hasCheckInAndCheckOut = checkIn && checkOut;
+    const hasGuest = adult + child + infant;
     if (modalName === 'CALENDAR' && hasCheckInAndCheckOut) {
+      return <FilterResetButton clickHandler={handleResetBtn} />;
+    }
+    if (modalName === 'GUEST' && hasGuest) {
       return <FilterResetButton clickHandler={handleResetBtn} />;
     }
     // TODO: Price, Guest 분기 처리
@@ -52,6 +60,10 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
   function handleResetBtn() {
     if (modalName === 'CALENDAR') {
       scheduleDispatch({ type: 'RESET' });
+      return;
+    }
+    if (modalName === 'GUEST') {
+      guestDispatch({ type: 'RESET' });
     }
   }
 }

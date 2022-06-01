@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import Calendar from 'components/Calendar/Calendar';
 import PriceModal from 'components/PriceModal';
+import GuestModal from 'components/GuestModal';
 import { FilterContext } from 'store/FilterContext';
 import SearchButton from './SearchButton';
 import Schedule from './Schedule';
@@ -33,7 +34,7 @@ function ActiveModal({ activeModalName }) {
     return <PriceModal />;
   }
   if (activeModalName === 'GUEST') {
-    return null;
+    return <GuestModal />;
   }
   if (activeModalName === 'NOTHING') {
     return null;
