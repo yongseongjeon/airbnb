@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import { ReactComponent as Check } from 'assets/check.svg';
 import { ReactComponent as Prev } from 'assets/chevron-left.svg';
 import { ReactComponent as Next } from 'assets/chevron-right.svg';
@@ -12,7 +13,6 @@ import { ReactComponent as Search } from 'assets/search.svg';
 import { ReactComponent as Star } from 'assets/star.svg';
 import { ReactComponent as User } from 'assets/user.svg';
 import { ReactComponent as XCircle } from 'assets/x-circle.svg';
-import styled from 'styled-components';
 
 const iconComponents = {
   check: Check,

@@ -1,7 +1,7 @@
 import COLOR from 'styles/colors';
 import IconButton from 'components/IconButton';
 
-function FilterResetButton() {
+function FilterResetButton({ clickHandler }) {
   const ResetButtonCss = `
     position: absolute;
     top : 50%;
@@ -18,6 +18,7 @@ function FilterResetButton() {
       fill={COLOR.GREY[100]}
       stroke={COLOR.BLACK}
       css={ResetButtonCss}
+      clickHandler={clickHandler}
     />
   );
 }
