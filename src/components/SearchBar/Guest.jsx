@@ -1,6 +1,6 @@
 import Filter from './Filter';
-// TODO: GUEST 모달 setActiveModal
-function Guest(/* { setActiveModal } */) {
+
+function Guest() {
   const filterContests = [
     {
       title: '인원',
@@ -8,14 +8,7 @@ function Guest(/* { setActiveModal } */) {
       placeholder: '게스트추가',
     },
   ];
-  return (
-    <Filter
-      type="Price"
-      filterContents={filterContests}
-      modalName="GUEST"
-      // setActiveModal={setActiveModal}
-    />
-  );
+  return <Filter type="Price" filterContents={filterContests} modalName="GUEST" />;
 }
 
 export default Guest;

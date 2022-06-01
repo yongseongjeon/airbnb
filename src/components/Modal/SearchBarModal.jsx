@@ -1,10 +1,12 @@
+import { useContext } from 'react';
+import { FilterContext } from 'store/FilterContext';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import { BOX_SHADOW } from 'styles/utils';
 import Z_INDEX from 'styles/zIndex';
 
-function SearchBarModal({ borderRadius, padding, children, setActiveModal }) {
-  // TODO: setActiveModal props drilling 개선
+function SearchBarModal({ borderRadius, padding, children }) {
+  const { modalDispatch } = useContext(FilterContext);
   return (
     <Wrap>
       <Dim onClick={handleClickedDim} />
@@ -15,7 +17,7 @@ function SearchBarModal({ borderRadius, padding, children, setActiveModal }) {
   );
 
   function handleClickedDim() {
-    setActiveModal('NOTHING');
+    modalDispatch({ type: 'CLOSE' });
   }
 }
 

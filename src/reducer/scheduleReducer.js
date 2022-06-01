@@ -11,7 +11,7 @@ function scheduleReducer(state, action) {
     case 'SET_CHECK_IN_ONLY':
       return { checkIn: action.date, checkOut: null };
     default:
-      throw new Error(MESSAGE.ERROR.WRONG_REDUCER_TYPE);
+      throw new Error(MESSAGE.ERROR.WRONG_REDUCER_TYPE(action.type));
   }
 }
 

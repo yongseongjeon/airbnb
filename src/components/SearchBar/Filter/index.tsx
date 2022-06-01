@@ -14,13 +14,11 @@ interface FilterProps {
     value: string;
     placeholder: string;
   }[];
-  activeModalName: string;
   modalName: string;
-  setActiveModal: (modalName: string) => void;
 }
 
-function Filter({ type, filterContents, modalName, activeModalName, setActiveModal }: FilterProps) {
-  const { schedule, scheduleDispatch } = useContext(FilterContext);
+function Filter({ type, filterContents, modalName }: FilterProps) {
+  const { schedule, scheduleDispatch, activeModalName, modalDispatch } = useContext(FilterContext);
   const { checkIn, checkOut } = schedule;
 
   return (
@@ -45,10 +43,10 @@ function Filter({ type, filterContents, modalName, activeModalName, setActiveMod
 
   function handleClickedBtn() {
     if (modalName === activeModalName) {
-      setActiveModal('NOTHING');
+      modalDispatch({ type: 'CLOSE' });
       return;
     }
-    setActiveModal(modalName);
+    modalDispatch({ type: `OPEN_${modalName}` });
   }
 
   function handleResetBtn() {

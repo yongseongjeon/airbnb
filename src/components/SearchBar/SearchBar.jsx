@@ -1,38 +1,42 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import Calendar from 'components/Calendar/Calendar';
 import PriceModal from 'components/PriceModal';
+import { FilterContext } from 'store/FilterContext';
 import SearchButton from './SearchButton';
 import Schedule from './Schedule';
 import Price from './Price';
 import Guest from './Guest';
 
 function SearchBar() {
-  const [activeModalName, setActiveModal] = useState('NOTHING');
+  const { activeModalName } = useContext(FilterContext);
 
   return (
     <LargeContainer>
-      <Schedule activeModalName={activeModalName} setActiveModal={setActiveModal} />
-      <Price setActiveModal={setActiveModal} />
-      <Guest setActiveModal={setActiveModal} />
+      <Schedule />
+      <Price />
+      <Guest />
       <SearchButton />
-      <ActiveModal activeModalName={activeModalName} setActiveModal={setActiveModal} />
+      <ActiveModal activeModalName={activeModalName} />
     </LargeContainer>
   );
 }
 
 export default SearchBar;
 
-function ActiveModal({ activeModalName, setActiveModal }) {
-  if (activeModalName === 'NOTHING') {
-    return null;
-  }
+function ActiveModal({ activeModalName }) {
   if (activeModalName === 'CALENDAR') {
-    return <Calendar setActiveModal={setActiveModal} />;
+    return <Calendar />;
   }
   if (activeModalName === 'PRICE') {
     return <PriceModal />;
+  }
+  if (activeModalName === 'GUEST') {
+    return null;
+  }
+  if (activeModalName === 'NOTHING') {
+    return null;
   }
   // TODO: GUEST
   throw new Error(`해당하는 ${activeModalName}모달창이 존재하지 않습니다.`);

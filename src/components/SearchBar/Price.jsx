@@ -1,6 +1,6 @@
 import Filter from './Filter';
 
-function Price({ setActiveModal }) {
+function Price() {
   const filterContests = [
     {
       title: '요금',
@@ -8,14 +8,7 @@ function Price({ setActiveModal }) {
       placeholder: '금액대 설정',
     },
   ];
-  return (
-    <Filter
-      type="Price"
-      filterContents={filterContests}
-      modalName="PRICE"
-      setActiveModal={setActiveModal}
-    />
-  );
+  return <Filter type="Price" filterContents={filterContests} modalName="PRICE" />;
 }
 
 export default Price;

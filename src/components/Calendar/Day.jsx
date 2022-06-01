@@ -43,17 +43,13 @@ function Day({ year, month, day }) {
     const isBeforeCheckIn = calendarDate < checkInDate;
 
     if (!hasCheckIn) {
-      // setCheckIn(curDate);
       scheduleDispatch({ type: 'SET_CHECK_IN', date: curDate });
       return;
     }
     if (isBeforeCheckIn) {
-      // setCheckIn(curDate);
-      // setCheckOut(null);
       scheduleDispatch({ type: 'SET_CHECK_IN_ONLY', date: curDate });
       return;
     }
-    // setCheckOut(curDate);
     scheduleDispatch({ type: 'SET_CHECK_OUT', date: curDate });
   }
 }
