@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { useState, createContext } from 'react';
+import { useState, createContext, useReducer } from 'react';
+import scheduleReducer from 'reducer/scheduleReducer';
 
 const FilterContext = createContext();
 
+const INIT_STATE = {
+  SCHEDULE: { checkIn: null, checkOut: null },
+};
+
 function FilterProvider({ children }) {
-  const [checkIn, setCheckIn] = useState(null);
-  const [checkOut, setCheckOut] = useState(null);
+  const [schedule, scheduleDispatch] = useReducer(scheduleReducer, INIT_STATE.SCHEDULE);
   const MIN_PRICE = 0;
   const PRINT_MAX_PRICE = 1000000;
   const [lowPrice, setLowPrice] = useState(MIN_PRICE);
@@ -14,10 +18,8 @@ function FilterProvider({ children }) {
   return (
     <FilterContext.Provider
       value={{
-        checkIn,
-        setCheckIn,
-        checkOut,
-        setCheckOut,
+        schedule,
+        scheduleDispatch,
         lowPrice,
         setLowPrice,
         highPrice,

@@ -3,7 +3,8 @@ import { FilterContext } from 'store/FilterContext';
 import Filter from './Filter';
 
 function Schedule({ activeModalName, setActiveModal }) {
-  const { checkIn, checkOut } = useContext(FilterContext);
+  const { schedule } = useContext(FilterContext);
+  const { checkIn, checkOut } = schedule;
   const filterContests = [
     {
       title: '체크인',

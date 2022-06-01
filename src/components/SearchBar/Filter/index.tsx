@@ -20,7 +20,9 @@ interface FilterProps {
 }
 
 function Filter({ type, filterContents, modalName, activeModalName, setActiveModal }: FilterProps) {
-  const { checkIn, checkOut, setCheckIn, setCheckOut } = useContext(FilterContext);
+  const { schedule, scheduleDispatch } = useContext(FilterContext);
+  const { checkIn, checkOut } = schedule;
+
   return (
     <Container type={type}>
       <Button type="button" onClick={handleClickedBtn}>
@@ -51,8 +53,7 @@ function Filter({ type, filterContents, modalName, activeModalName, setActiveMod
 
   function handleResetBtn() {
     if (modalName === 'CALENDAR') {
-      setCheckIn(null);
-      setCheckOut(null);
+      scheduleDispatch({ type: 'RESET' });
     }
   }
 }
