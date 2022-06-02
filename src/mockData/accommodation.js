@@ -101,4 +101,47 @@ const accommodation = [
   { id: 100, price: 937354 },
 ];
 
-export default accommodation;
+const ITEMS = [
+  {
+    imageURL:
+      'https://a0.muscache.com/im/pictures/miso/Hosting-604726298950758799/original/c1dfc6c2-1871-43d4-bf6c-b070934602e0.jpeg?im_w=720',
+    local: '서초구의 아파트 전체',
+    desc: 'Spacious and Comfortable cozy house #4',
+    option: '최대 인원 3명 ∙ 원룸 ∙ 침대 1개 ∙ 욕실 1개 주방 ∙ 무선 인터넷 ∙ 에어컨 ∙ 헤어드라이어',
+    price: { perNight: 82953, total: 1493159 },
+    grade: 4.8,
+    reviewCnt: 127,
+  },
+  {
+    imageURL:
+      'https://a0.muscache.com/im/pictures/monet/Select-34444025/original/622a7f24-1a55-4468-82b5-fb3abc83020f?im_w=1200',
+    local: '서초구의 아파트 전체',
+    desc: 'Spacious and Comfortable cozy house #4',
+    option: '최대 인원 3명 ∙ 원룸 ∙ 침대 1개 ∙ 욕실 1개 주방 ∙ 무선 인터넷 ∙ 에어컨 ∙ 헤어드라이어',
+    price: { perNight: 82953, total: 1493159 },
+    grade: 4.8,
+    reviewCnt: 127,
+  },
+  {
+    imageURL:
+      'https://a0.muscache.com/im/pictures/miso/Hosting-45465864/original/3d966c94-4c87-479b-8eeb-4889e9fb6ac9.jpeg?im_w=1200',
+    local: '서초구의 아파트 전체',
+    desc: 'Spacious and Comfortable cozy house #4',
+    option: '최대 인원 3명 ∙ 원룸 ∙ 침대 1개 ∙ 욕실 1개 주방 ∙ 무선 인터넷 ∙ 에어컨 ∙ 헤어드라이어',
+    price: { perNight: 82953, total: 1493159 },
+    grade: 4.8,
+    reviewCnt: 127,
+  },
+  {
+    imageURL:
+      'https://a0.muscache.com/im/pictures/miso/Hosting-47771464/original/e8f6758f-1348-43f6-832a-066a90523068.jpeg?im_w=1200',
+    local: '서초구의 아파트 전체',
+    desc: 'Spacious and Comfortable cozy house #4',
+    option: '최대 인원 3명 ∙ 원룸 ∙ 침대 1개 ∙ 욕실 1개 주방 ∙ 무선 인터넷 ∙ 에어컨 ∙ 헤어드라이어',
+    price: { perNight: 82953, total: 1493159 },
+    grade: 4.8,
+    reviewCnt: 127,
+  },
+];
+
+export { accommodation, ITEMS };

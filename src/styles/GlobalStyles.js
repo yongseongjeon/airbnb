@@ -3,9 +3,9 @@ import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
-  
-  .App {
-    font: inherit;
+
+  * {
+    box-sizing: border-box;
   }
 
   html,
