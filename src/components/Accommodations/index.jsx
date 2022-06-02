@@ -9,8 +9,9 @@ function Accommodations() {
     <Wrap>
       <AccommodationHeader />
       <AccommodationItems>
-        {ITEMS.map(({ imageURL, local, desc, option, price, grade, reviewCnt }) => (
+        {ITEMS.map(({ imageURL, local, desc, option, price, grade, reviewCnt }, i) => (
           <AccommodationItem
+            key={i}
             imageURL={imageURL}
             local={local}
             desc={desc}
