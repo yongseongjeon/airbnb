@@ -20,10 +20,19 @@ interface FilterProps {
 }
 
 function Filter({ type, filterContents, modalName }: FilterProps) {
-  const { guest, guestDispatch, schedule, scheduleDispatch, activeModalName, modalDispatch } =
-    useContext(FilterContext);
+  const {
+    guest,
+    guestDispatch,
+    schedule,
+    scheduleDispatch,
+    activeModalName,
+    modalDispatch,
+    price,
+    priceDispatch,
+  } = useContext(FilterContext);
   const { adult, child, infant } = guest;
   const { checkIn, checkOut } = schedule;
+  const { low, high } = price;
 
   return (
     <Container type={type}>
@@ -39,10 +48,14 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
   function ResetBtn() {
     const hasCheckInAndCheckOut = checkIn && checkOut;
     const hasGuest = adult + child + infant;
+    const hasPrice = low && high;
     if (modalName === 'CALENDAR' && hasCheckInAndCheckOut) {
       return <FilterResetButton clickHandler={handleResetBtn} />;
     }
     if (modalName === 'GUEST' && hasGuest) {
+      return <FilterResetButton clickHandler={handleResetBtn} />;
+    }
+    if (modalName === 'PRICE' && hasPrice) {
       return <FilterResetButton clickHandler={handleResetBtn} />;
     }
     // TODO: Price, Guest 분기 처리
@@ -60,6 +73,10 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
   function handleResetBtn() {
     if (modalName === 'CALENDAR') {
       scheduleDispatch({ type: 'RESET' });
+      return;
+    }
+    if (modalName === 'PRICE') {
+      priceDispatch({ type: 'RESET' });
       return;
     }
     if (modalName === 'GUEST') {

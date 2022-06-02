@@ -1,4 +1,5 @@
-import { useContext, useRef, useState } from 'react';
+/* eslint-disable operator-linebreak */
+import { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import accommodation from 'mockData/accommodation';
 import { FilterContext } from 'store/FilterContext';
@@ -6,7 +7,6 @@ import SearchBarModal from 'components/Modal/SearchBarModal';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
 import PRICE_RANGE from 'constants/priceRange';
-import CANVAS_SIZE from 'constants/canvasSize';
 import Canvas from './Canvas';
 import { convertPriceToLocaleString, getAverage } from './calculate';
 import RangeSliderController from './RangeSliderController';
@@ -14,22 +14,23 @@ import RangeSliderController from './RangeSliderController';
 function PriceModal() {
   const accommodationPrice = accommodation.map((item) => item.price);
   const averagePrice = getAverage(accommodationPrice);
-  const { lowPrice, highPrice } = useContext(FilterContext);
+  const { price } = useContext(FilterContext);
   const convertMaxPrice = convertPriceToLocaleString(PRICE_RANGE.MAX);
-  const convertLowPrice = convertPriceToLocaleString(lowPrice);
-  const convertHighPrice = convertPriceToLocaleString(highPrice);
+  const convertLowPrice = convertPriceToLocaleString(price.low);
+  const convertHighPrice = convertPriceToLocaleString(price.high);
   const convertAveragePrice = convertPriceToLocaleString(averagePrice);
   const lowInput = useRef(null);
   const highInput = useRef(null);
-  const [lowInputValue, setLowInputValue] = useState(0);
-  const [highInputValue, setHighInputValue] = useState(CANVAS_SIZE.WIDTH);
+  const { lowInputValue, setLowInputValue, highInputValue, setHighInputValue } =
+    useContext(FilterContext);
+
   return (
     <SearchBarModal padding="52px 64px 66px" borderRadius="40px">
       <Title>가격 범위</Title>
       <div>
         <PriceRange>
           ₩{convertLowPrice} - ₩
-          {highPrice >= PRICE_RANGE.MAX ? `${convertMaxPrice}+` : convertHighPrice}
+          {price.high >= PRICE_RANGE.MAX ? `${convertMaxPrice}+` : convertHighPrice}
         </PriceRange>
         <PriceAverage>평균 1박 요금은 ₩{convertAveragePrice} 입니다.</PriceAverage>
       </div>

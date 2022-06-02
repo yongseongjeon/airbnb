@@ -1,6 +1,7 @@
+/* eslint-disable operator-linebreak */
 /* eslint-disable no-debugger */
 /* eslint-disable no-param-reassign */
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import IconButton from 'components/IconButton';
 import CANVAS_SIZE from 'constants/canvasSize';
 import styled from 'styled-components';
@@ -8,20 +9,27 @@ import COLOR from 'styles/colors';
 import PRICE_RANGE from 'constants/priceRange';
 import { FilterContext } from 'store/FilterContext';
 
-function RangeSliderController({ lowInput, highInput, setLowInputValue, setHighInputValue }) {
-  const { setLowPrice, setHighPrice } = useContext(FilterContext);
-
+function RangeSliderController({ lowInput, highInput }) {
+  const { setLowInputValue, setHighInputValue, lowInputValue, highInputValue } =
+    useContext(FilterContext);
+  const { priceDispatch } = useContext(FilterContext);
   const lowButton = useRef(null);
   const highButton = useRef(null);
   const priceInterval = Math.round(PRICE_RANGE.MAX / CANVAS_SIZE.WIDTH);
   const MIN_DISTANCE_OF_BTNS = 10;
+
+  useEffect(() => {
+    setLocationLowButton();
+    setLocationHighButton();
+  }, [lowInputValue, highInputValue]);
+
   return (
     <ControlWrap>
       <Input
         type="range"
         min={0}
         max={CANVAS_SIZE.WIDTH}
-        defaultValue={0}
+        defaultValue={lowInputValue}
         ref={lowInput}
         onInput={lowPriceHandler}
       />
@@ -29,7 +37,7 @@ function RangeSliderController({ lowInput, highInput, setLowInputValue, setHighI
         type="range"
         min={0}
         max={CANVAS_SIZE.WIDTH}
-        defaultValue={CANVAS_SIZE.WIDTH}
+        defaultValue={highInputValue}
         ref={highInput}
         onInput={highPriceHandler}
       />
@@ -55,30 +63,34 @@ function RangeSliderController({ lowInput, highInput, setLowInputValue, setHighI
   );
 
   function lowPriceHandler({ target }) {
-    const MAX = target.max;
+    const updateLowPrice = priceInterval * target.value;
     target.value = Math.min(
       target.value,
       Math.floor(highInput.current.value) - MIN_DISTANCE_OF_BTNS,
     );
-    const percent = Math.floor((target.value / MAX) * 100);
-    lowButton.current.style.left = `${percent}%`;
-    const updateLowPrice = priceInterval * target.value;
-    setLowPrice(updateLowPrice);
+    priceDispatch({ type: 'SET_LOW', value: updateLowPrice });
     setLowInputValue(target.value);
   }
 
   function highPriceHandler({ target }) {
-    const MAX = Number(target.max);
+    const newHighPrice = priceInterval * target.value;
+    const updateHighPrice = newHighPrice >= PRICE_RANGE.MAX ? PRICE_RANGE.MAX : newHighPrice;
     target.value = Math.max(
       target.value,
       Math.floor(lowInput.current.value) + MIN_DISTANCE_OF_BTNS,
     );
-    const percent = Math.floor((target.value / MAX) * 100);
-    highButton.current.style.right = `${100 - percent}%`;
-    const newHighPrice = priceInterval * target.value;
-    const updateHighPrice = newHighPrice >= PRICE_RANGE.MAX ? PRICE_RANGE.MAX : newHighPrice;
-    setHighPrice(updateHighPrice);
+    priceDispatch({ type: 'SET_HIGH', value: updateHighPrice });
     setHighInputValue(target.value);
+  }
+
+  function setLocationLowButton() {
+    const lowBtnLocation = Math.floor((lowInputValue / CANVAS_SIZE.WIDTH) * 100);
+    lowButton.current.style.left = `${lowBtnLocation}%`;
+  }
+
+  function setLocationHighButton() {
+    const highBtnLocation = Math.floor((highInputValue / CANVAS_SIZE.WIDTH) * 100);
+    highButton.current.style.right = `${100 - highBtnLocation}%`;
   }
 }
 

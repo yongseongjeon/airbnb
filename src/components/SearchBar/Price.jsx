@@ -5,12 +5,12 @@ import { FilterContext } from 'store/FilterContext';
 import Filter from './Filter';
 
 function Price() {
-  const { lowPrice, highPrice } = useContext(FilterContext);
+  const { price } = useContext(FilterContext);
   const convertMaxPrice = convertPriceToLocaleString(PRICE_RANGE.MAX);
-  const convertLowPrice = convertPriceToLocaleString(lowPrice);
-  const convertHighPrice = convertPriceToLocaleString(highPrice);
-  const isChangePriceRange = lowPrice === PRICE_RANGE.MIN && highPrice === PRICE_RANGE.MAX;
-  const highPriceValue = highPrice >= PRICE_RANGE.MAX ? `${convertMaxPrice}+` : convertHighPrice;
+  const convertLowPrice = convertPriceToLocaleString(price.low);
+  const convertHighPrice = convertPriceToLocaleString(price.high);
+  const isChangePriceRange = price.low === PRICE_RANGE.MIN && price.high === PRICE_RANGE.MAX;
+  const highPriceValue = price.high >= PRICE_RANGE.MAX ? `${convertMaxPrice}+` : convertHighPrice;
   const filterContests = [
     {
       title: '요금',

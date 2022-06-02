@@ -1,31 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useRef } from 'react';
 import CANVAS_SIZE from 'constants/canvasSize';
-import { FilterContext } from 'store/FilterContext';
 import COLOR from 'styles/colors';
+import PRICE_RANGE from 'constants/priceRange';
+import { FilterContext } from 'store/FilterContext';
 import { getRangeCount, getYpoint } from './calculate';
 
-function Canvas({ accommodationPrice, lowInputValue, highInputValue }) {
+function Canvas({ accommodationPrice }) {
+  const { lowInputValue, highInputValue } = useContext(FilterContext);
   const canvasRef = useRef(null);
-  const { highPrice } = useContext(FilterContext);
-  const priceInterval = highPrice / CANVAS_SIZE.X_COUNT;
+  const priceInterval = PRICE_RANGE.MAX / CANVAS_SIZE.X_COUNT;
   const priceRangeCounts = getRangeCount({
     rangeCount: CANVAS_SIZE.X_COUNT,
     priceArray: accommodationPrice,
-    highPrice,
+    highPrice: PRICE_RANGE.MAX,
     priceInterval,
   });
   const maxPriceCount = Math.max(...priceRangeCounts);
   const START_POINT = CANVAS_SIZE.START_POINT;
   const END_POINT = CANVAS_SIZE.END_POINT;
 
-  useEffect(() => {
-    drawGraph();
-  }, []);
+  useEffect(drawGraph, []);
 
-  useEffect(() => {
-    fillGraph();
-  }, [lowInputValue, highInputValue]);
+  useEffect(fillGraph, [lowInputValue, highInputValue]);
 
   return <canvas ref={canvasRef} width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT} />;
 
@@ -63,6 +60,7 @@ function Canvas({ accommodationPrice, lowInputValue, highInputValue }) {
       END_POINT.X,
       END_POINT.Y,
     );
+    canvasContext.clearRect(0, 0, CANVAS_SIZE.WIDTH, CANVAS_SIZE.HEIGHT);
     gradientColor.addColorStop(0, COLOR.GREY[200]);
     gradientColor.addColorStop(targetLow, COLOR.GREY[200]);
     gradientColor.addColorStop(targetLow, COLOR.BLACK);
