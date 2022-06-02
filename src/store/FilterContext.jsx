@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+import PRIICE from 'constants/priceRange';
 import { useState, createContext, useReducer } from 'react';
 import guestReducer from 'reducer/guestReducer';
 import modalReducer from 'reducer/modalReducer';
@@ -16,10 +17,8 @@ function FilterProvider({ children }) {
   const [schedule, scheduleDispatch] = useReducer(scheduleReducer, INIT_STATE.SCHEDULE);
   const [activeModalName, modalDispatch] = useReducer(modalReducer, INIT_STATE.ACTIVE_MODAL_NAME);
   const [guest, guestDispatch] = useReducer(guestReducer, INIT_STATE.GUEST);
-  const MIN_PRICE = 0;
-  const PRINT_MAX_PRICE = 1000000;
-  const [lowPrice, setLowPrice] = useState(MIN_PRICE);
-  const [highPrice, setHighPrice] = useState(PRINT_MAX_PRICE);
+  const [lowPrice, setLowPrice] = useState(PRIICE.MIN);
+  const [highPrice, setHighPrice] = useState(PRIICE.MAX);
 
   return (
     <FilterContext.Provider
@@ -34,7 +33,6 @@ function FilterProvider({ children }) {
         setLowPrice,
         highPrice,
         setHighPrice,
-        PRINT_MAX_PRICE,
       }}
     >
       {children}

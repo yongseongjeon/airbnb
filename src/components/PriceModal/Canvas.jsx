@@ -1,39 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useRef } from 'react';
+import CANVAS_SIZE from 'constants/canvasSize';
 import { FilterContext } from 'store/FilterContext';
 import COLOR from 'styles/colors';
 import { getRangeCount, getYpoint } from './calculate';
 
-const canvasWidth = 365;
-const canvasheight = 100;
-const xRangeCount = 11;
-const xInterver = canvasWidth / xRangeCount;
-const defaultStart = { x: 0, y: 100 };
-const defaultEnd = { x: canvasWidth, y: canvasheight };
-
-function Canvas({ accommodationPrice }) {
+function Canvas({ accommodationPrice, lowInputValue, highInputValue }) {
   const canvasRef = useRef(null);
   const { highPrice } = useContext(FilterContext);
-  const priceInterval = highPrice / xRangeCount;
+  const priceInterval = highPrice / CANVAS_SIZE.X_COUNT;
   const priceRangeCounts = getRangeCount({
-    rangeCount: xRangeCount,
+    rangeCount: CANVAS_SIZE.X_COUNT,
     priceArray: accommodationPrice,
     highPrice,
     priceInterval,
   });
   const maxPriceCount = Math.max(...priceRangeCounts);
+  const START_POINT = CANVAS_SIZE.START_POINT;
+  const END_POINT = CANVAS_SIZE.END_POINT;
 
-  function drawDefaultGraph() {
+  useEffect(() => {
+    drawGraph();
+  }, []);
+
+  useEffect(() => {
+    fillGraph();
+  }, [lowInputValue, highInputValue]);
+
+  return <canvas ref={canvasRef} width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT} />;
+
+  function drawGraph() {
     const canvas = canvasRef.current;
     const canvasContext = canvas.getContext('2d');
 
     canvasContext.beginPath();
-    canvasContext.moveTo(defaultStart.x, defaultStart.y);
+    canvasContext.moveTo(START_POINT.X, START_POINT.Y);
     priceRangeCounts.forEach((data, index) => {
-      const xPoint = xInterver * (index + 1);
-      const yPoint = getYpoint(canvasheight, maxPriceCount, data);
-      const prevX = xInterver * index;
-      const prevY = getYpoint(canvasheight, maxPriceCount, priceRangeCounts[index - 1]);
+      const xPoint = CANVAS_SIZE.X_INTERVAL * (index + 1);
+      const yPoint = getYpoint(CANVAS_SIZE.HEIGHT, maxPriceCount, data);
+      const prevX = CANVAS_SIZE.X_INTERVAL * index;
+      const prevY = getYpoint(CANVAS_SIZE.HEIGHT, maxPriceCount, priceRangeCounts[index - 1]);
       const controlX = (prevX + xPoint) / 2; // 제어점 X = (start x + end x ) / 2
 
       if (index === 0) {
@@ -42,16 +48,30 @@ function Canvas({ accommodationPrice }) {
         canvasContext.bezierCurveTo(controlX, prevY, controlX, yPoint, xPoint, yPoint);
       }
     });
-    canvasContext.lineTo(defaultEnd.x, defaultEnd.y);
-    canvasContext.fillStyle = COLOR.GREY[200];
-    canvasContext.fill();
+    canvasContext.lineTo(END_POINT.X, END_POINT.Y);
+    fillGraph(canvasContext);
   }
 
-  useEffect(() => {
-    drawDefaultGraph();
-  }, []);
-
-  return <canvas ref={canvasRef} width={canvasWidth} height={canvasheight} />;
+  function fillGraph() {
+    const canvas = canvasRef.current;
+    const canvasContext = canvas.getContext('2d');
+    const targetLow = lowInputValue / CANVAS_SIZE.WIDTH;
+    const targetHigh = highInputValue / CANVAS_SIZE.WIDTH;
+    const gradientColor = canvasContext.createLinearGradient(
+      START_POINT.X,
+      START_POINT.Y,
+      END_POINT.X,
+      END_POINT.Y,
+    );
+    gradientColor.addColorStop(0, COLOR.GREY[200]);
+    gradientColor.addColorStop(targetLow, COLOR.GREY[200]);
+    gradientColor.addColorStop(targetLow, COLOR.BLACK);
+    gradientColor.addColorStop(targetHigh, COLOR.BLACK);
+    gradientColor.addColorStop(targetHigh, COLOR.GREY[200]);
+    gradientColor.addColorStop(1, COLOR.GREY[200]);
+    canvasContext.fillStyle = gradientColor;
+    canvasContext.fill();
+  }
 }
 
 export default Canvas;
