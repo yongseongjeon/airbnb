@@ -6,6 +6,7 @@ const FONT = {
     LARGE: '18px',
     X_LARGE: '20px',
     LOGO: '32px',
+    TITLE: '35px',
   },
   WEIGHT: {
     REGULAR: 400,

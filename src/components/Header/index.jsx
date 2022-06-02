@@ -9,7 +9,7 @@ import GNB from './GNB';
 import AccountMenu from './AccountMenu';
 
 function Header({ pageType }) {
-  const [isFolded] = useState(false);
+  const [isFolded] = useState(true);
 
   return (
     <HeaderContainer pageType={pageType}>

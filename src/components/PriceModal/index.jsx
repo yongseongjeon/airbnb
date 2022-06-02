@@ -1,7 +1,7 @@
 /* eslint-disable operator-linebreak */
 import { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import accommodation from 'mockData/accommodation';
+import { accommodation } from 'mockData/accommodation';
 import { FilterContext } from 'store/FilterContext';
 import SearchBarModal from 'components/Modal/SearchBarModal';
 import COLOR from 'styles/colors';
