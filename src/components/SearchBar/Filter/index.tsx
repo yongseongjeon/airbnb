@@ -27,12 +27,12 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
     scheduleDispatch,
     activeModalName,
     modalDispatch,
-    price,
-    priceDispatch,
+    priceSlider,
+    priceSliderDispatch,
   } = useContext(FilterContext);
   const { adult, child, infant } = guest;
   const { checkIn, checkOut } = schedule;
-  const { low, high } = price;
+  const { low, high } = priceSlider.price;
 
   return (
     <Container type={type}>
@@ -76,7 +76,7 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
       return;
     }
     if (modalName === 'PRICE') {
-      priceDispatch({ type: 'RESET' });
+      priceSliderDispatch({ type: 'RESET' });
       return;
     }
     if (modalName === 'GUEST') {

@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable operator-linebreak */
 import { useContext, useRef } from 'react';
 import styled from 'styled-components';
@@ -14,15 +15,15 @@ import RangeSliderController from './RangeSliderController';
 function PriceModal() {
   const accommodationPrice = accommodation.map((item) => item.price);
   const averagePrice = getAverage(accommodationPrice);
-  const { price } = useContext(FilterContext);
+  const { priceSlider } = useContext(FilterContext);
+  const { price } = priceSlider;
+  // debugger;
   const convertMaxPrice = convertPriceToLocaleString(PRICE_RANGE.MAX);
   const convertLowPrice = convertPriceToLocaleString(price.low);
   const convertHighPrice = convertPriceToLocaleString(price.high);
   const convertAveragePrice = convertPriceToLocaleString(averagePrice);
   const lowInput = useRef(null);
   const highInput = useRef(null);
-  const { lowInputValue, setLowInputValue, highInputValue, setHighInputValue } =
-    useContext(FilterContext);
 
   return (
     <SearchBarModal padding="52px 64px 66px" borderRadius="40px">
@@ -35,17 +36,8 @@ function PriceModal() {
         <PriceAverage>평균 1박 요금은 ₩{convertAveragePrice} 입니다.</PriceAverage>
       </div>
       <RangeSlideWrap>
-        <Canvas
-          accommodationPrice={accommodationPrice}
-          lowInputValue={lowInputValue}
-          highInputValue={highInputValue}
-        />
-        <RangeSliderController
-          lowInput={lowInput}
-          highInput={highInput}
-          setLowInputValue={setLowInputValue}
-          setHighInputValue={setHighInputValue}
-        />
+        <Canvas accommodationPrice={accommodationPrice} />
+        <RangeSliderController lowInput={lowInput} highInput={highInput} />
       </RangeSlideWrap>
     </SearchBarModal>
   );

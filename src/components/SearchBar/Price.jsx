@@ -5,7 +5,8 @@ import { FilterContext } from 'store/FilterContext';
 import Filter from './Filter';
 
 function Price() {
-  const { price } = useContext(FilterContext);
+  const { priceSlider } = useContext(FilterContext);
+  const { price } = priceSlider;
   const convertMaxPrice = convertPriceToLocaleString(PRICE_RANGE.MAX);
   const convertLowPrice = convertPriceToLocaleString(price.low);
   const convertHighPrice = convertPriceToLocaleString(price.high);

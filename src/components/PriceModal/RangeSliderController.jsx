@@ -10,9 +10,8 @@ import PRICE_RANGE from 'constants/priceRange';
 import { FilterContext } from 'store/FilterContext';
 
 function RangeSliderController({ lowInput, highInput }) {
-  const { setLowInputValue, setHighInputValue, lowInputValue, highInputValue } =
-    useContext(FilterContext);
-  const { priceDispatch } = useContext(FilterContext);
+  const { priceSlider } = useContext(FilterContext);
+  const { priceSliderDispatch } = useContext(FilterContext);
   const lowButton = useRef(null);
   const highButton = useRef(null);
   const priceInterval = Math.round(PRICE_RANGE.MAX / CANVAS_SIZE.WIDTH);
@@ -21,7 +20,7 @@ function RangeSliderController({ lowInput, highInput }) {
   useEffect(() => {
     setLocationLowButton();
     setLocationHighButton();
-  }, [lowInputValue, highInputValue]);
+  }, [priceSlider]);
 
   return (
     <ControlWrap>
@@ -29,7 +28,8 @@ function RangeSliderController({ lowInput, highInput }) {
         type="range"
         min={0}
         max={CANVAS_SIZE.WIDTH}
-        defaultValue={lowInputValue}
+        defaultValue={priceSlider.inputValue.low}
+        value={priceSlider.inputValue.low}
         ref={lowInput}
         onInput={lowPriceHandler}
       />
@@ -37,7 +37,8 @@ function RangeSliderController({ lowInput, highInput }) {
         type="range"
         min={0}
         max={CANVAS_SIZE.WIDTH}
-        defaultValue={highInputValue}
+        defaultValue={priceSlider.inputValue.high}
+        value={priceSlider.inputValue.high}
         ref={highInput}
         onInput={highPriceHandler}
       />
@@ -68,8 +69,10 @@ function RangeSliderController({ lowInput, highInput }) {
       target.value,
       Math.floor(highInput.current.value) - MIN_DISTANCE_OF_BTNS,
     );
-    priceDispatch({ type: 'SET_LOW', value: updateLowPrice });
-    setLowInputValue(target.value);
+    priceSliderDispatch({
+      type: 'SET_LOW',
+      value: { price: updateLowPrice, inputValue: target.value },
+    });
   }
 
   function highPriceHandler({ target }) {
@@ -79,17 +82,19 @@ function RangeSliderController({ lowInput, highInput }) {
       target.value,
       Math.floor(lowInput.current.value) + MIN_DISTANCE_OF_BTNS,
     );
-    priceDispatch({ type: 'SET_HIGH', value: updateHighPrice });
-    setHighInputValue(target.value);
+    priceSliderDispatch({
+      type: 'SET_HIGH',
+      value: { price: updateHighPrice, inputValue: target.value },
+    });
   }
 
   function setLocationLowButton() {
-    const lowBtnLocation = Math.floor((lowInputValue / CANVAS_SIZE.WIDTH) * 100);
+    const lowBtnLocation = Math.floor((priceSlider.inputValue.low / CANVAS_SIZE.WIDTH) * 100);
     lowButton.current.style.left = `${lowBtnLocation}%`;
   }
 
   function setLocationHighButton() {
-    const highBtnLocation = Math.floor((highInputValue / CANVAS_SIZE.WIDTH) * 100);
+    const highBtnLocation = Math.floor((priceSlider.inputValue.high / CANVAS_SIZE.WIDTH) * 100);
     highButton.current.style.right = `${100 - highBtnLocation}%`;
   }
 }

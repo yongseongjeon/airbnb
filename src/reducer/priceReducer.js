@@ -1,17 +1,28 @@
+import CANVAS_SIZE from 'constants/canvasSize';
 import MESSAGE from 'constants/message';
-import PRICE_RANGE from 'constants/priceRange';
+import PRIICE from 'constants/priceRange';
 
-function priceReducer(state, action) {
+function priceSliderReducer(state, action) {
   switch (action.type) {
     case 'RESET':
-      return { low: PRICE_RANGE.MIN, high: PRICE_RANGE.MAX };
+      return {
+        price: { low: PRIICE.MIN, high: PRIICE.MAX },
+        inputValue: { low: 0, high: CANVAS_SIZE.WIDTH },
+      };
     case 'SET_LOW':
-      return { ...state, low: action.value };
+      return {
+        price: { ...state.price, low: action.value.price },
+        inputValue: { ...state.inputValue, low: action.value.inputValue },
+      };
     case 'SET_HIGH':
-      return { ...state, high: action.value };
+      return {
+        ...state,
+        price: { ...state.price, high: action.value.price },
+        inputValue: { ...state.inputValue, high: action.value.inputValue },
+      };
     default:
       throw new Error(MESSAGE.ERROR.WRONG_REDUCER_TYPE(action.type));
   }
 }
 
-export default priceReducer;
+export default priceSliderReducer;

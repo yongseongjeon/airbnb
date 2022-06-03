@@ -7,7 +7,7 @@ import { FilterContext } from 'store/FilterContext';
 import { getRangeCount, getYpoint } from './calculate';
 
 function Canvas({ accommodationPrice }) {
-  const { lowInputValue, highInputValue } = useContext(FilterContext);
+  const { priceSlider } = useContext(FilterContext);
   const canvasRef = useRef(null);
   const priceInterval = PRICE_RANGE.MAX / CANVAS_SIZE.X_COUNT;
   const priceRangeCounts = getRangeCount({
@@ -22,7 +22,7 @@ function Canvas({ accommodationPrice }) {
 
   useEffect(drawGraph, []);
 
-  useEffect(fillGraph, [lowInputValue, highInputValue]);
+  useEffect(fillGraph, [priceSlider.inputValue.low, priceSlider.inputValue.high]);
 
   return <canvas ref={canvasRef} width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT} />;
 
@@ -52,8 +52,8 @@ function Canvas({ accommodationPrice }) {
   function fillGraph() {
     const canvas = canvasRef.current;
     const canvasContext = canvas.getContext('2d');
-    const targetLow = lowInputValue / CANVAS_SIZE.WIDTH;
-    const targetHigh = highInputValue / CANVAS_SIZE.WIDTH;
+    const targetLow = priceSlider.inputValue.low / CANVAS_SIZE.WIDTH;
+    const targetHigh = priceSlider.inputValue.high / CANVAS_SIZE.WIDTH;
     const gradientColor = canvasContext.createLinearGradient(
       START_POINT.X,
       START_POINT.Y,
