@@ -50,6 +50,7 @@ const LargeContainer = styled.div`
   width: 916px;
   height: 76px;
   margin: 20px auto 0;
+  padding-right: 90px;
   border-radius: 60px;
   border: 1px solid ${COLOR.GREY[300]};
   background: ${COLOR.WHITE};
