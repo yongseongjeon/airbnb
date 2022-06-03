@@ -25,24 +25,28 @@ const Container = styled.div`
   height: 48px;
   border-radius: 30px;
   margin: 0 auto;
-  padding: 8px;
   padding-right: 40px;
   border: 1px solid ${COLOR.GREY[300]};
   background: ${COLOR.WHITE};
 
-  > div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  > div + div {
-    border-left: 1px solid ${COLOR.GREY[200]};
+  > button + button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: ${COLOR.GREY[200]};
   }
 `;
 
-const FilterValue = styled.div`
+const FilterValue = styled.button`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   font-size: ${FONT.SIZE.SMALL};
   color: ${({ value }) => (value ? COLOR.BLACK : COLOR.GREY[400])};
 `;
