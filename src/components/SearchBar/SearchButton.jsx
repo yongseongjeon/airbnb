@@ -3,8 +3,12 @@ import COLOR from 'styles/colors';
 import FONT from 'styles/font';
 import IconButton from 'components/IconButton';
 import Z_INDEX from 'styles/zIndex';
+import { useContext } from 'react';
+import { FilterContext } from 'store/FilterContext';
 
 function SearchButton({ searchBarType }) {
+  const { activeModalName } = useContext(FilterContext);
+  const isOpenModal = activeModalName !== 'NOTHING';
   return (
     <SearchBtn searchBarType={searchBarType}>
       <IconButton
@@ -14,7 +18,7 @@ function SearchButton({ searchBarType }) {
         fill="none"
         stroke={COLOR.WHITE}
       />
-      {searchBarType !== 'mini' && <Text>검색</Text>}
+      {isOpenModal && <Text>검색</Text>}
     </SearchBtn>
   );
 }
@@ -22,8 +26,9 @@ function SearchButton({ searchBarType }) {
 export default SearchButton;
 
 const SearchBtn = styled.span`
+  position: absolute;
+  right: 16px;
   z-index: ${Z_INDEX.SEARCH_BTN};
-  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
