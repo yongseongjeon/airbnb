@@ -39,7 +39,6 @@ function ActiveModal({ activeModalName }) {
   if (activeModalName === 'NOTHING') {
     return null;
   }
-  // TODO: GUEST
   throw new Error(`해당하는 ${activeModalName}모달창이 존재하지 않습니다.`);
 }
 

@@ -64,11 +64,11 @@ function RangeSliderController({ lowInput, highInput }) {
   );
 
   function lowPriceHandler({ target }) {
-    const updateLowPrice = priceInterval * target.value;
     target.value = Math.min(
       target.value,
       Math.floor(highInput.current.value) - MIN_DISTANCE_OF_BTNS,
     );
+    const updateLowPrice = priceInterval * target.value;
     priceSliderDispatch({
       type: 'SET_LOW',
       value: { price: updateLowPrice, inputValue: target.value },
@@ -76,12 +76,12 @@ function RangeSliderController({ lowInput, highInput }) {
   }
 
   function highPriceHandler({ target }) {
-    const newHighPrice = priceInterval * target.value;
-    const updateHighPrice = newHighPrice >= PRICE_RANGE.MAX ? PRICE_RANGE.MAX : newHighPrice;
     target.value = Math.max(
       target.value,
       Math.floor(lowInput.current.value) + MIN_DISTANCE_OF_BTNS,
     );
+    const newHighPrice = priceInterval * target.value;
+    const updateHighPrice = newHighPrice >= PRICE_RANGE.MAX ? PRICE_RANGE.MAX : newHighPrice;
     priceSliderDispatch({
       type: 'SET_HIGH',
       value: { price: updateHighPrice, inputValue: target.value },

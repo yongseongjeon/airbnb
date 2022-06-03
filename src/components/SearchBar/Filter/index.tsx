@@ -1,6 +1,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable max-len */
 /* eslint-disable react/no-unstable-nested-components */
+import PRICE_RANGE from 'constants/priceRange';
 import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
 import styled from 'styled-components';
@@ -48,7 +49,7 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
   function ResetBtn() {
     const hasCheckInAndCheckOut = checkIn && checkOut;
     const hasGuest = adult + child + infant;
-    const hasPrice = low && high;
+    const hasPrice = low || high !== PRICE_RANGE.MAX;
     if (modalName === 'CALENDAR' && hasCheckInAndCheckOut) {
       return <FilterResetButton clickHandler={handleResetBtn} />;
     }
@@ -58,7 +59,6 @@ function Filter({ type, filterContents, modalName }: FilterProps) {
     if (modalName === 'PRICE' && hasPrice) {
       return <FilterResetButton clickHandler={handleResetBtn} />;
     }
-    // TODO: Price, Guest 분기 처리
     return null;
   }
 
