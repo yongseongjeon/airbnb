@@ -36,10 +36,10 @@ const SearchBtn = styled.span`
   min-width: ${({ searchBarType }) => searchBarType !== 'mini' && '42px'};
   width: ${({ searchBarType }) => (searchBarType === 'mini' ? '32px' : 'auto')};
   height: ${({ searchBarType }) => (searchBarType === 'mini' ? '32px' : '42px')};
-  margin-right: 16px;
   padding: 0 8px;
   border-radius: 32px;
   background: ${COLOR.PRIMARY};
+  cursor: pointer;
 
   > button {
     width: 100%;

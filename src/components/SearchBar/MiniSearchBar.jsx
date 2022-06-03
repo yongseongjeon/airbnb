@@ -17,6 +17,7 @@ function MiniSearchBar({ schedule, price, guest }) {
 export default MiniSearchBar;
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +26,7 @@ const Container = styled.div`
   border-radius: 30px;
   margin: 0 auto;
   padding: 8px;
+  padding-right: 40px;
   border: 1px solid ${COLOR.GREY[300]};
   background: ${COLOR.WHITE};
 
