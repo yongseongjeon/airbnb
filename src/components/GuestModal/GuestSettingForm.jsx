@@ -62,7 +62,12 @@ const Column = styled.div`
 
 const Wrap = styled.div`
   display: flex;
+  padding: 20px 0;
   gap: 80px;
+
+  & + div {
+    border-top: 1px solid ${COLOR.GREY[400]};
+  }
 `;
 
 const Title = styled.div`

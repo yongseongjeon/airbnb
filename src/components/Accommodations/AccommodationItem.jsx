@@ -45,6 +45,10 @@ const Wrap = styled.div`
   padding-bottom: 24px;
   border-bottom: 1px solid ${COLOR.GREY[200]};
   gap: 24px;
+
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 const Contents = styled.div`

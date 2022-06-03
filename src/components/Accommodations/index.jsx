@@ -34,16 +34,10 @@ const Wrap = styled.div`
 
 const AccommodationItems = styled.div`
   display: flex;
-  height: 725px;
+  height: calc(100% - 80px);
   overflow-y: scroll;
   flex-direction: column;
   gap: 24px;
 `;
-
-// const Line = styled.div`
-//   width: 100%;
-//   height: 1px;
-//   background-color: ${COLOR.GREY[200]};
-// `;
 
 export default Accommodations;

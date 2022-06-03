@@ -10,7 +10,7 @@ const GUEST_SETTING_FORMS = [
 
 function GuestModal() {
   return (
-    <SearchBarModal padding="64px" borderRadius="40px">
+    <SearchBarModal padding="44px 64px" borderRadius="40px">
       <Wrap>
         {GUEST_SETTING_FORMS.map(({ type, title, titleInfo }) => (
           <GuestSettingForm key={type} type={type} title={title} titleInfo={titleInfo} />
@@ -23,7 +23,6 @@ function GuestModal() {
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 48px;
 `;
 
 export default GuestModal;

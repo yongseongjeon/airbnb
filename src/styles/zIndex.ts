@@ -6,6 +6,7 @@ interface ZIndex {
   };
   FILTER_CONTAINER: number;
   SEARCH_BTN: number;
+  HEADER: number;
 }
 
 const Z_INDEX: ZIndex = {
@@ -16,6 +17,7 @@ const Z_INDEX: ZIndex = {
   },
   FILTER_CONTAINER: 90,
   SEARCH_BTN: 90,
+  HEADER: 10,
 };
 
 export default Z_INDEX;
