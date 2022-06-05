@@ -1,4 +1,7 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable max-len */
 /* eslint-disable react/no-unstable-nested-components */
+import PRICE_RANGE from 'constants/priceRange';
 import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
 import styled from 'styled-components';
@@ -14,13 +17,24 @@ interface FilterProps {
     value: string;
     placeholder: string;
   }[];
-  activeModalName: string;
   modalName: string;
-  setActiveModal: (modalName: string) => void;
 }
 
-function Filter({ type, filterContents, modalName, activeModalName, setActiveModal }: FilterProps) {
-  const { checkIn, checkOut, setCheckIn, setCheckOut } = useContext(FilterContext);
+function Filter({ type, filterContents, modalName }: FilterProps) {
+  const {
+    guest,
+    guestDispatch,
+    schedule,
+    scheduleDispatch,
+    activeModalName,
+    modalDispatch,
+    priceSlider,
+    priceSliderDispatch,
+  } = useContext(FilterContext);
+  const { adult, child, infant } = guest;
+  const { checkIn, checkOut } = schedule;
+  const { low, high } = priceSlider.price;
+
   return (
     <Container type={type}>
       <Button type="button" onClick={handleClickedBtn}>
@@ -34,25 +48,39 @@ function Filter({ type, filterContents, modalName, activeModalName, setActiveMod
 
   function ResetBtn() {
     const hasCheckInAndCheckOut = checkIn && checkOut;
+    const hasGuest = adult + child + infant;
+    const hasPrice = low || high !== PRICE_RANGE.MAX;
     if (modalName === 'CALENDAR' && hasCheckInAndCheckOut) {
       return <FilterResetButton clickHandler={handleResetBtn} />;
     }
-    // TODO: Price, Guest 분기 처리
+    if (modalName === 'GUEST' && hasGuest) {
+      return <FilterResetButton clickHandler={handleResetBtn} />;
+    }
+    if (modalName === 'PRICE' && hasPrice) {
+      return <FilterResetButton clickHandler={handleResetBtn} />;
+    }
     return null;
   }
 
   function handleClickedBtn() {
     if (modalName === activeModalName) {
-      setActiveModal('NOTHING');
+      modalDispatch({ type: 'CLOSE' });
       return;
     }
-    setActiveModal(modalName);
+    modalDispatch({ type: `OPEN_${modalName}` });
   }
 
   function handleResetBtn() {
     if (modalName === 'CALENDAR') {
-      setCheckIn(null);
-      setCheckOut(null);
+      scheduleDispatch({ type: 'RESET' });
+      return;
+    }
+    if (modalName === 'PRICE') {
+      priceSliderDispatch({ type: 'RESET' });
+      return;
+    }
+    if (modalName === 'GUEST') {
+      guestDispatch({ type: 'RESET' });
     }
   }
 }

@@ -8,7 +8,8 @@ import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
 
 function Day({ year, month, day }) {
-  const { checkIn, setCheckIn, checkOut, setCheckOut } = useContext(FilterContext);
+  const { schedule, scheduleDispatch } = useContext(FilterContext);
+  const { checkIn, checkOut } = schedule;
   const DEFAULT_CHECK_IN = { year: 9999, month: 0, day: 0 };
   const DEFAULT_CHECK_OUT = { year: 0, month: 0, day: 0 };
   const checkInDate = getDate(checkIn || DEFAULT_CHECK_IN);
@@ -39,23 +40,17 @@ function Day({ year, month, day }) {
   function handleClickedDay() {
     const curDate = { year, month, day };
     const hasCheckIn = checkIn;
-    const hasCheckOut = checkOut;
     const isBeforeCheckIn = calendarDate < checkInDate;
 
     if (!hasCheckIn) {
-      setCheckIn(curDate);
+      scheduleDispatch({ type: 'SET_CHECK_IN', date: curDate });
       return;
     }
     if (isBeforeCheckIn) {
-      setCheckIn(curDate);
-      setCheckOut(null);
+      scheduleDispatch({ type: 'SET_CHECK_IN_ONLY', date: curDate });
       return;
     }
-    if (!hasCheckOut) {
-      setCheckOut(curDate);
-      return;
-    }
-    setCheckOut(curDate);
+    scheduleDispatch({ type: 'SET_CHECK_OUT', date: curDate });
   }
 }
 

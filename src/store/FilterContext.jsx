@@ -1,28 +1,41 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import { useState, createContext } from 'react';
+import CANVAS_SIZE from 'constants/canvasSize';
+import PRIICE from 'constants/priceRange';
+import { createContext, useReducer } from 'react';
+import guestReducer from 'reducer/guestReducer';
+import modalReducer from 'reducer/modalReducer';
+import priceReducer from 'reducer/priceReducer';
+import scheduleReducer from 'reducer/scheduleReducer';
 
 const FilterContext = createContext();
 
+const INIT_STATE = {
+  SCHEDULE: { checkIn: null, checkOut: null },
+  ACTIVE_MODAL_NAME: 'NOTHING',
+  GUEST: { adult: 0, child: 0, infant: 0 },
+  PRICE_SIDER: {
+    price: { low: PRIICE.MIN, high: PRIICE.MAX },
+    inputValue: { low: 0, high: CANVAS_SIZE.WIDTH },
+  },
+};
+
 function FilterProvider({ children }) {
-  const [checkIn, setCheckIn] = useState(null);
-  const [checkOut, setCheckOut] = useState(null);
-  const MIN_PRICE = 0;
-  const PRINT_MAX_PRICE = 1000000;
-  const [lowPrice, setLowPrice] = useState(MIN_PRICE);
-  const [highPrice, setHighPrice] = useState(PRINT_MAX_PRICE);
+  const [schedule, scheduleDispatch] = useReducer(scheduleReducer, INIT_STATE.SCHEDULE);
+  const [activeModalName, modalDispatch] = useReducer(modalReducer, INIT_STATE.ACTIVE_MODAL_NAME);
+  const [guest, guestDispatch] = useReducer(guestReducer, INIT_STATE.GUEST);
+  const [priceSlider, priceSliderDispatch] = useReducer(priceReducer, INIT_STATE.PRICE_SIDER);
 
   return (
     <FilterContext.Provider
       value={{
-        checkIn,
-        setCheckIn,
-        checkOut,
-        setCheckOut,
-        lowPrice,
-        setLowPrice,
-        highPrice,
-        setHighPrice,
-        PRINT_MAX_PRICE,
+        schedule,
+        scheduleDispatch,
+        activeModalName,
+        modalDispatch,
+        guest,
+        guestDispatch,
+        priceSlider,
+        priceSliderDispatch,
       }}
     >
       {children}

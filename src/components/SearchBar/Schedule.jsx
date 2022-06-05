@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
 import Filter from './Filter';
 
-function Schedule({ activeModalName, setActiveModal }) {
-  const { checkIn, checkOut } = useContext(FilterContext);
+function Schedule() {
+  const { schedule } = useContext(FilterContext);
+  const { checkIn, checkOut } = schedule;
   const filterContests = [
     {
       title: '체크인',
@@ -17,15 +18,7 @@ function Schedule({ activeModalName, setActiveModal }) {
     },
   ];
 
-  return (
-    <Filter
-      type="Schedule"
-      filterContents={filterContests}
-      modalName="CALENDAR"
-      activeModalName={activeModalName}
-      setActiveModal={setActiveModal}
-    />
-  );
+  return <Filter type="Schedule" filterContents={filterContests} modalName="CALENDAR" />;
 }
 
 export default Schedule;

@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.1"
@@ -47,7 +48,9 @@
       "no-use-before-define": 0,
       "react/jsx-one-expression-per-line": 0,
       "@typescript-eslint/no-use-before-define": 0,
-      "prefer-destructuring": 0
+      "prefer-destructuring": 0,
+      "prefer-arrow-callback": 0,
+      "react-hooks/exhaustive-deps": 0
     },
     "env": {
       "browser": true

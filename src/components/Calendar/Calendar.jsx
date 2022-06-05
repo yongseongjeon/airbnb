@@ -6,7 +6,7 @@ import Month from 'components/Calendar/Month';
 import IconButton from 'components/IconButton';
 import COLOR from 'styles/colors';
 
-function Calendar({ setActiveModal }) {
+function Calendar() {
   const [date, setDate] = useState(getYearMonthLastDay(new Date()));
   const [curYear, curMonth, curLastDay] = date;
   const [nextYear, nextMonth, nextLastDay] = getYearMonthLastDay(
@@ -14,7 +14,7 @@ function Calendar({ setActiveModal }) {
   );
 
   return (
-    <SearchBarModal padding="64px 88px" borderRadius="40px" setActiveModal={setActiveModal}>
+    <SearchBarModal padding="64px 88px" borderRadius="40px">
       <Header>
         <IconButton
           icon="prev"

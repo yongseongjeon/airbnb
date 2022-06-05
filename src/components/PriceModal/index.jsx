@@ -1,34 +1,43 @@
-import { useContext } from 'react';
+/* eslint-disable no-debugger */
+/* eslint-disable operator-linebreak */
+import { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import accommodation from 'mockData/accommodation';
+import { accommodation } from 'mockData/accommodation';
 import { FilterContext } from 'store/FilterContext';
 import SearchBarModal from 'components/Modal/SearchBarModal';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
+import PRICE_RANGE from 'constants/priceRange';
 import Canvas from './Canvas';
 import { convertPriceToLocaleString, getAverage } from './calculate';
+import RangeSliderController from './RangeSliderController';
 
 function PriceModal() {
   const accommodationPrice = accommodation.map((item) => item.price);
   const averagePrice = getAverage(accommodationPrice);
-  const { lowPrice, highPrice, PRINT_MAX_PRICE } = useContext(FilterContext);
-
-  const convertLowPrice = convertPriceToLocaleString(lowPrice);
-  const convertHighPrice = convertPriceToLocaleString(highPrice);
+  const { priceSlider } = useContext(FilterContext);
+  const { price } = priceSlider;
+  // debugger;
+  const convertMaxPrice = convertPriceToLocaleString(PRICE_RANGE.MAX);
+  const convertLowPrice = convertPriceToLocaleString(price.low);
+  const convertHighPrice = convertPriceToLocaleString(price.high);
   const convertAveragePrice = convertPriceToLocaleString(averagePrice);
+  const lowInput = useRef(null);
+  const highInput = useRef(null);
 
   return (
     <SearchBarModal padding="52px 64px 66px" borderRadius="40px">
       <Title>가격 범위</Title>
       <div>
         <PriceRange>
-          ₩ {convertLowPrice} - ₩{convertHighPrice}
-          {highPrice === PRINT_MAX_PRICE && '+'}
+          ₩{convertLowPrice} - ₩
+          {price.high >= PRICE_RANGE.MAX ? `${convertMaxPrice}+` : convertHighPrice}
         </PriceRange>
         <PriceAverage>평균 1박 요금은 ₩{convertAveragePrice} 입니다.</PriceAverage>
       </div>
       <RangeSlideWrap>
         <Canvas accommodationPrice={accommodationPrice} />
+        <RangeSliderController lowInput={lowInput} highInput={highInput} />
       </RangeSlideWrap>
     </SearchBarModal>
   );
@@ -54,5 +63,6 @@ const PriceAverage = styled.p`
 `;
 
 const RangeSlideWrap = styled.div`
+  position: relative;
   margin-top: 45px;
 `;

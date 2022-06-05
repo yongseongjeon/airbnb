@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 function getAverage(array) {
   const sum = array.reduce((prev, next) => prev + next);
   return Math.floor(sum / array.length);
@@ -9,13 +10,11 @@ function convertPriceToLocaleString(price) {
 
 function getRangeCount({ rangeCount, priceArray, highPrice, priceInterval }) {
   const rangeArray = new Array(rangeCount).fill(0);
-
   priceArray.forEach((price) => {
     const priceRangeCalc = Math.floor(price / priceInterval);
     const rangeIndex = price > highPrice ? rangeArray.length - 1 : priceRangeCalc;
     rangeArray[rangeIndex] += 1;
   });
-
   return rangeArray;
 }
 

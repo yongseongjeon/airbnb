@@ -1,28 +1,50 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import FONT from 'styles/font';
 import COLOR from 'styles/colors';
 import { BOX_SHADOW } from 'styles/utils';
 import MiniSearchBar from 'components/SearchBar/MiniSearchBar';
 import SearchBar from 'components/SearchBar/SearchBar';
+import Z_INDEX from 'styles/zIndex';
 import GNB from './GNB';
 import AccountMenu from './AccountMenu';
 
 function Header({ pageType }) {
-  const [isFolded] = useState(false);
+  const [isSpreadSearchBar, setSpreadSearchBar] = useState(true);
+
+  useEffect(() => {
+    if (pageType === 'sub') setSpreadSearchBar(false);
+  }, []);
 
   return (
     <HeaderContainer pageType={pageType}>
       <Inner pageType={pageType}>
-        <MainBar>
-          <Logo>LOGO</Logo>
-          {!isFolded && <GNB />}
-          {isFolded && <MiniSearchBar />}
-          <AccountMenu />
-        </MainBar>
-        {!isFolded && <SearchBar />}
+        {isSpreadSearchBar ? <DefaultSearchBarContainer /> : <MiniSearchBarContainer />}
       </Inner>
     </HeaderContainer>
+  );
+}
+
+function DefaultSearchBarContainer() {
+  return (
+    <>
+      <MainBar>
+        <Logo>LOGO</Logo>
+        <GNB />
+        <AccountMenu />
+      </MainBar>
+      <SearchBar />
+    </>
+  );
+}
+
+function MiniSearchBarContainer() {
+  return (
+    <MainBar>
+      <Logo>LOGO</Logo>
+      <MiniSearchBar />
+      <AccountMenu />
+    </MainBar>
   );
 }
 
@@ -39,6 +61,7 @@ const HeaderContainer = styled.header`
   right: 0;
   padding: 20px 0;
   ${({ pageType }) => pageType === 'sub' && SubHeader};
+  z-index: ${Z_INDEX.HEADER};
 `;
 
 const Inner = styled.div`
