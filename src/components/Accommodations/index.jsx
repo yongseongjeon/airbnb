@@ -1,5 +1,5 @@
 import SIZE from 'constants/size';
-import { ITEMS } from 'mockData/accommodation';
+import ACCOMODATIONS from 'mockData/accommodation';
 import styled from 'styled-components';
 import AccommodationHeader from './AccommodationHeader';
 import AccommodationItem from './AccommodationItem';
@@ -9,7 +9,7 @@ function Accommodations() {
     <Wrap>
       <AccommodationHeader />
       <AccommodationItems>
-        {ITEMS.map(({ imageURL, local, desc, option, price, grade, reviewCnt }, i) => (
+        {ACCOMODATIONS.map(({ imageURL, local, desc, option, price, grade, reviewCnt }, i) => (
           <AccommodationItem
             key={i}
             imageURL={imageURL}

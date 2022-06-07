@@ -2,7 +2,7 @@
 /* eslint-disable operator-linebreak */
 import { useContext, useRef } from 'react';
 import styled from 'styled-components';
-import { accommodation } from 'mockData/accommodation';
+import ACCOMMODATIONS from 'mockData/accommodation';
 import { FilterContext } from 'store/FilterContext';
 import SearchBarModal from 'components/Modal/SearchBarModal';
 import COLOR from 'styles/colors';
@@ -13,7 +13,7 @@ import { convertPriceToLocaleString, getAverage } from './calculate';
 import RangeSliderController from './RangeSliderController';
 
 function PriceModal() {
-  const accommodationPrice = accommodation.map((item) => item.price);
+  const accommodationPrice = ACCOMMODATIONS.map((item) => item.price);
   const averagePrice = getAverage(accommodationPrice);
   const { priceSlider } = useContext(FilterContext);
   const { price } = priceSlider;
