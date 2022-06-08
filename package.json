@@ -51,7 +51,8 @@
       "prefer-destructuring": 0,
       "prefer-arrow-callback": 0,
       "react-hooks/exhaustive-deps": 0,
-      "operator-linebreak": 0
+      "operator-linebreak": 0,
+      "react/jsx-no-constructed-context-values": 0
     },
     "env": {
       "browser": true

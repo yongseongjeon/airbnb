@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable react/jsx-no-constructed-context-values */
 
 import ACCOMMODATIONS from 'mockData/accommodation';
 import { createContext, useContext, useEffect, useState } from 'react';

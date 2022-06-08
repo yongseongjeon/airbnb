@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 import CANVAS_SIZE from 'constants/canvasSize';
 import PRICE from 'constants/priceRange';
 import { createContext, useReducer } from 'react';
