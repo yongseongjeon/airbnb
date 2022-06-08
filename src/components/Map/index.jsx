@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import styled from 'styled-components';
-import SIZE from 'constants/size';
+import SIZE from 'styles/size';
 import { useEffect } from 'react';
 
 const { kakao } = window;

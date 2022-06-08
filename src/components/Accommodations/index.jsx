@@ -1,4 +1,4 @@
-import SIZE from 'constants/size';
+import SIZE from 'styles/size';
 import ACCOMODATIONS from 'mockData/accommodation';
 import styled from 'styled-components';
 import AccommodationHeader from './AccommodationHeader';
