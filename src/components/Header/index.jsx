@@ -16,7 +16,7 @@ function Header() {
   const { pathname } = location;
 
   useEffect(function setInitStateOfSearchBar() {
-    if (pathname === '/result') {
+    if (pathname === '/searchResult') {
       setSpreadSearchBar(false);
     }
   }, []);
@@ -65,14 +65,14 @@ const HeaderContainer = styled.header`
   left: 0;
   right: 0;
   padding: 20px 0;
-  ${({ pathname }) => pathname === '/result' && SubHeader};
+  ${({ pathname }) => pathname === '/searchResult' && SubHeader};
   z-index: ${Z_INDEX.HEADER};
 `;
 
 const Inner = styled.div`
   width: 1440px;
   margin: 0 auto;
-  padding: ${({ pathname }) => (pathname === '/result' ? '0 24px' : '0 80px')};
+  padding: ${({ pathname }) => (pathname === '/searchResult' ? '0 24px' : '0 80px')};
 `;
 
 const MainBar = styled.div`

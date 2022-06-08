@@ -10,8 +10,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index path="/" element={<Home />} />
-          <Route path="/result" element={<SearchResult />} />
-          <Route path="/success" element={<ReservationSuccess />} />
+          <Route path="/searchResult" element={<SearchResult />} />
+          <Route path="/reservationSuccess" element={<ReservationSuccess />} />
         </Routes>
       </BrowserRouter>
     </FilterProvider>
