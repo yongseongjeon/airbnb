@@ -1,12 +1,12 @@
 import CANVAS_SIZE from 'constants/canvasSize';
 import MESSAGE from 'constants/message';
-import PRIICE from 'constants/priceRange';
+import PRICE from 'constants/priceRange';
 
 function priceSliderReducer(state, action) {
   switch (action.type) {
     case 'RESET':
       return {
-        price: { low: PRIICE.MIN, high: PRIICE.MAX },
+        price: { low: PRICE.MIN, high: PRICE.MAX },
         inputValue: { low: 0, high: CANVAS_SIZE.WIDTH },
       };
     case 'SET_LOW':
