@@ -6,20 +6,29 @@ import { BOX_SHADOW } from 'styles/utils';
 import MiniSearchBar from 'components/SearchBar/MiniSearchBar';
 import SearchBar from 'components/SearchBar/SearchBar';
 import Z_INDEX from 'styles/zIndex';
+import { useLocation } from 'react-router-dom';
 import GNB from './GNB';
 import AccountMenu from './AccountMenu';
 
-function Header({ pageType }) {
+function Header() {
   const [isSpreadSearchBar, setSpreadSearchBar] = useState(true);
+  const location = useLocation();
+  const { pathname } = location;
 
-  useEffect(() => {
-    if (pageType === 'sub') setSpreadSearchBar(false);
+  useEffect(function setInitStateOfSearchBar() {
+    if (pathname === '/searchResult') {
+      setSpreadSearchBar(false);
+    }
   }, []);
 
   return (
-    <HeaderContainer pageType={pageType}>
-      <Inner pageType={pageType}>
-        {isSpreadSearchBar ? <DefaultSearchBarContainer /> : <MiniSearchBarContainer />}
+    <HeaderContainer pathname={pathname}>
+      <Inner pathname={pathname}>
+        {isSpreadSearchBar ? (
+          <DefaultSearchBarContainer />
+        ) : (
+          <MiniSearchBarContainer setSpreadSearchBar={setSpreadSearchBar} />
+        )}
       </Inner>
     </HeaderContainer>
   );
@@ -38,11 +47,11 @@ function DefaultSearchBarContainer() {
   );
 }
 
-function MiniSearchBarContainer() {
+function MiniSearchBarContainer({ setSpreadSearchBar }) {
   return (
     <MainBar>
       <Logo>LOGO</Logo>
-      <MiniSearchBar />
+      <MiniSearchBar setSpreadSearchBar={setSpreadSearchBar} />
       <AccountMenu />
     </MainBar>
   );
@@ -60,14 +69,14 @@ const HeaderContainer = styled.header`
   left: 0;
   right: 0;
   padding: 20px 0;
-  ${({ pageType }) => pageType === 'sub' && SubHeader};
+  ${({ pathname }) => pathname === '/searchResult' && SubHeader};
   z-index: ${Z_INDEX.HEADER};
 `;
 
 const Inner = styled.div`
   width: 1440px;
   margin: 0 auto;
-  padding: ${({ pageType }) => (pageType === 'sub' ? '0 24px' : '0 80px')};
+  padding: ${({ pathname }) => (pathname === '/searchResult' ? '0 24px' : '0 80px')};
 `;
 
 const MainBar = styled.div`

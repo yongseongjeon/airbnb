@@ -3,12 +3,12 @@ import IconButton from 'components/IconButton';
 import FONT from 'styles/font';
 import COLOR from 'styles/colors';
 
-function AccommodationItem({ imageURL, local, desc, option, price, grade, reviewCnt }) {
+function AccommodationItem({ imageURL, name, option, price, grade, reviewCnt }) {
   return (
     <Wrap>
       <Thumbnail src={imageURL} />
       <Contents>
-        <Local>{local}</Local>
+        <Local>인천광역시</Local>
         <IconButton
           icon="heart"
           width="20.9px"
@@ -17,11 +17,11 @@ function AccommodationItem({ imageURL, local, desc, option, price, grade, review
           stroke="#828282"
           css="position:absolute;top:0;right:0;"
         />
-        <Desc>{desc}</Desc>
+        <Desc>{name}</Desc>
         <Option>{option}</Option>
         <Price>
-          <PerNightPrice>₩{Number(price.perNight).toLocaleString()} / 박</PerNightPrice>
-          <TotalPrice>총액 ₩{Number(price.total).toLocaleString()}</TotalPrice>
+          <PerNightPrice>₩{Number(price).toLocaleString()} / 박</PerNightPrice>
+          <TotalPrice>총액 ₩{Number(price * 7).toLocaleString()}</TotalPrice>
         </Price>
         <Review>
           <IconButton

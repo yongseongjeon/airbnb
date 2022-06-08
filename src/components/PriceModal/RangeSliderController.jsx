@@ -28,7 +28,6 @@ function RangeSliderController({ lowInput, highInput }) {
         type="range"
         min={0}
         max={CANVAS_SIZE.WIDTH}
-        defaultValue={priceSlider.inputValue.low}
         value={priceSlider.inputValue.low}
         ref={lowInput}
         onInput={lowPriceHandler}
@@ -37,7 +36,6 @@ function RangeSliderController({ lowInput, highInput }) {
         type="range"
         min={0}
         max={CANVAS_SIZE.WIDTH}
-        defaultValue={priceSlider.inputValue.high}
         value={priceSlider.inputValue.high}
         ref={highInput}
         onInput={highPriceHandler}

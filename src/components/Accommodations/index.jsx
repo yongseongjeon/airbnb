@@ -1,20 +1,22 @@
-import SIZE from 'constants/size';
-import { ITEMS } from 'mockData/accommodation';
+import SIZE from 'styles/size';
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { AccommodationContext } from 'store/AccommodationContext';
 import AccommodationHeader from './AccommodationHeader';
 import AccommodationItem from './AccommodationItem';
 
 function Accommodations() {
+  const { accommodations } = useContext(AccommodationContext);
   return (
     <Wrap>
       <AccommodationHeader />
       <AccommodationItems>
-        {ITEMS.map(({ imageURL, local, desc, option, price, grade, reviewCnt }, i) => (
+        {accommodations.map(({ imageURL, name, location, option, price, grade, reviewCnt }, i) => (
           <AccommodationItem
             key={i}
             imageURL={imageURL}
-            local={local}
-            desc={desc}
+            name={name}
+            location={location}
             option={option}
             price={price}
             grade={grade}

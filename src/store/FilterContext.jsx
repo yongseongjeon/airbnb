@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
 import CANVAS_SIZE from 'constants/canvasSize';
-import PRIICE from 'constants/priceRange';
+import PRICE from 'constants/priceRange';
 import { createContext, useReducer } from 'react';
 import guestReducer from 'reducer/guestReducer';
 import modalReducer from 'reducer/modalReducer';
@@ -14,7 +13,7 @@ const INIT_STATE = {
   ACTIVE_MODAL_NAME: 'NOTHING',
   GUEST: { adult: 0, child: 0, infant: 0 },
   PRICE_SIDER: {
-    price: { low: PRIICE.MIN, high: PRIICE.MAX },
+    price: { low: PRICE.MIN, high: PRICE.MAX },
     inputValue: { low: 0, high: CANVAS_SIZE.WIDTH },
   },
 };
