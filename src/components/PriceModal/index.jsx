@@ -1,5 +1,3 @@
-/* eslint-disable no-debugger */
-/* eslint-disable operator-linebreak */
 import { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import ACCOMMODATIONS from 'mockData/accommodation';
@@ -7,9 +5,9 @@ import { FilterContext } from 'store/FilterContext';
 import SearchBarModal from 'components/Modal/SearchBarModal';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
-import PRICE_RANGE from 'constants/priceRange';
-import Canvas from './Canvas';
+import { getConvertPriceText } from 'utils/fromStateToString';
 import { convertPriceToLocaleString, getAverage } from './calculate';
+import Canvas from './Canvas';
 import RangeSliderController from './RangeSliderController';
 
 function PriceModal() {
@@ -17,10 +15,7 @@ function PriceModal() {
   const averagePrice = getAverage(accommodationPrice);
   const { priceSlider } = useContext(FilterContext);
   const { price } = priceSlider;
-  // debugger;
-  const convertMaxPrice = convertPriceToLocaleString(PRICE_RANGE.MAX);
-  const convertLowPrice = convertPriceToLocaleString(price.low);
-  const convertHighPrice = convertPriceToLocaleString(price.high);
+  const convertPriceText = getConvertPriceText({ lowPrice: price.low, highPrice: price.high });
   const convertAveragePrice = convertPriceToLocaleString(averagePrice);
   const lowInput = useRef(null);
   const highInput = useRef(null);
@@ -29,10 +24,7 @@ function PriceModal() {
     <SearchBarModal padding="52px 64px 66px" borderRadius="40px">
       <Title>가격 범위</Title>
       <div>
-        <PriceRange>
-          ₩{convertLowPrice} - ₩
-          {price.high >= PRICE_RANGE.MAX ? `${convertMaxPrice}+` : convertHighPrice}
-        </PriceRange>
+        <PriceRange>{convertPriceText}</PriceRange>
         <PriceAverage>평균 1박 요금은 ₩{convertAveragePrice} 입니다.</PriceAverage>
       </div>
       <RangeSlideWrap>

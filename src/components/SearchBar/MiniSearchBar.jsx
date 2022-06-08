@@ -1,7 +1,6 @@
-import { convertPriceToLocaleString } from 'components/PriceModal/calculate';
-import PRICE_RANGE from 'constants/priceRange';
 import { useContext, useEffect } from 'react';
 import { FilterContext } from 'store/FilterContext';
+import { getConvertPriceText, getGuestText, getScheduleText } from 'utils/fromStateToString';
 import styled from 'styled-components';
 import COLOR from 'styles/colors';
 import FONT from 'styles/font';
@@ -13,14 +12,10 @@ function MiniSearchBar({ setSpreadSearchBar }) {
   const { checkIn, checkOut } = schedule;
   const { low, high } = priceSlider.price;
   const { adult, child, infant } = guest;
-  const checkInText = checkIn ? `${checkIn.month}월 ${checkIn.day}일` : '';
-  const checkOutText = checkOut ? `- ${checkOut.month}월 ${checkOut.day}일` : '- 일정입력';
-  const convertLowPrice = convertPriceToLocaleString(low);
-  const convertHighPrice = convertPriceToLocaleString(high);
-  const priceText = `₩ ${convertLowPrice} - ₩${convertHighPrice}`;
   const peopleCnt = adult + child;
-  const peopleValue = peopleCnt ? `게스트 ${peopleCnt}명 ` : '';
-  const infantValue = infant ? `유아 ${infant}명` : '';
+  const scheduleText = checkIn && checkOut && getScheduleText({ checkIn, checkOut });
+  const priceText = getConvertPriceText({ lowPrice: low, highPrice: high });
+  const guestText = getGuestText({ adult, child, infant });
 
   useEffect(function setDefaultFilter() {
     setDefaultSchedule();
@@ -33,22 +28,14 @@ function MiniSearchBar({ setSpreadSearchBar }) {
         setSpreadSearchBar(true);
       }}
     >
-      <FilterValue
-        filter="schedule"
-        value={checkIn && checkOut}
-        onClick={() => modalDispatch({ type: 'OPEN_CALENDAR' })}
-      >
-        {checkIn && checkOut ? `${checkInText} ${checkOutText}` : '일정 입력'}
+      <FilterValue filter="schedule" onClick={() => modalDispatch({ type: 'OPEN_CALENDAR' })}>
+        {scheduleText}
       </FilterValue>
-      <FilterValue filter="price" value onClick={() => modalDispatch({ type: 'OPEN_PRICE' })}>
-        {high === PRICE_RANGE.MAX ? `${priceText}+` : priceText}
+      <FilterValue filter="price" onClick={() => modalDispatch({ type: 'OPEN_PRICE' })}>
+        {priceText}
       </FilterValue>
-      <FilterValue
-        filter="guest"
-        value={peopleValue + infantValue}
-        onClick={() => modalDispatch({ type: 'OPEN_PRICE' })}
-      >
-        {peopleValue + infantValue || '인원 입력'}
+      <FilterValue filter="guest" onClick={() => modalDispatch({ type: 'OPEN_PRICE' })}>
+        {guestText}
       </FilterValue>
       <SearchButton searchBarType="mini" />
     </Container>
@@ -105,5 +92,5 @@ const FilterValue = styled.button`
   height: 100%;
   padding: 0 10px;
   font-size: ${FONT.SIZE.SMALL};
-  color: ${({ value }) => (value ? COLOR.BLACK : COLOR.GREY[400])};
+  color: ${COLOR.BLACK};
 `;
