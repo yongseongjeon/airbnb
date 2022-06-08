@@ -5,21 +5,29 @@ import IconButton from 'components/IconButton';
 import Z_INDEX from 'styles/zIndex';
 import { useContext } from 'react';
 import { FilterContext } from 'store/FilterContext';
+import { Link } from 'react-router-dom';
 
 function SearchButton({ searchBarType }) {
-  const { activeModalName } = useContext(FilterContext);
+  const { activeModalName, modalDispatch } = useContext(FilterContext);
   const isOpenModal = activeModalName !== 'NOTHING';
   return (
-    <SearchBtn searchBarType={searchBarType}>
-      <IconButton
-        icon="search"
-        width={searchBarType === 'mini' ? '16' : '24'}
-        height={searchBarType === 'mini' ? '16' : '24'}
-        fill="none"
-        stroke={COLOR.WHITE}
-      />
-      {isOpenModal && <Text>검색</Text>}
-    </SearchBtn>
+    <Link to="/searchResult">
+      <SearchBtn
+        searchBarType={searchBarType}
+        onClick={() => {
+          modalDispatch({ type: 'CLOSE' });
+        }}
+      >
+        <IconButton
+          icon="search"
+          width={searchBarType === 'mini' ? '16' : '24'}
+          height={searchBarType === 'mini' ? '16' : '24'}
+          fill="none"
+          stroke={COLOR.WHITE}
+        />
+        {isOpenModal && <Text>검색</Text>}
+      </SearchBtn>
+    </Link>
   );
 }
 
@@ -27,7 +35,9 @@ export default SearchButton;
 
 const SearchBtn = styled.span`
   position: absolute;
-  right: 16px;
+  top: 50%;
+  right: ${({ searchBarType }) => (searchBarType === 'mini' ? '8px' : '16px')};
+  transform: translateY(-50%);
   z-index: ${Z_INDEX.SEARCH_BTN};
   display: flex;
   align-items: center;

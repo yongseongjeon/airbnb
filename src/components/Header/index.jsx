@@ -24,7 +24,11 @@ function Header() {
   return (
     <HeaderContainer pathname={pathname}>
       <Inner pathname={pathname}>
-        {isSpreadSearchBar ? <DefaultSearchBarContainer /> : <MiniSearchBarContainer />}
+        {isSpreadSearchBar ? (
+          <DefaultSearchBarContainer />
+        ) : (
+          <MiniSearchBarContainer setSpreadSearchBar={setSpreadSearchBar} />
+        )}
       </Inner>
     </HeaderContainer>
   );
@@ -43,11 +47,11 @@ function DefaultSearchBarContainer() {
   );
 }
 
-function MiniSearchBarContainer() {
+function MiniSearchBarContainer({ setSpreadSearchBar }) {
   return (
     <MainBar>
       <Logo>LOGO</Logo>
-      <MiniSearchBar />
+      <MiniSearchBar setSpreadSearchBar={setSpreadSearchBar} />
       <AccountMenu />
     </MainBar>
   );
