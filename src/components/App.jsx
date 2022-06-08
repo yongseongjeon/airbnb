@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from 'pages/Home';
 import SearchResult from 'pages/SearchResult';
 import ReservationSuccess from 'pages/ReservationSuccess';
+import NoMatch from 'pages/NoMatch';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route index path="/" element={<Home />} />
           <Route path="/searchResult" element={<SearchResult />} />
           <Route path="/reservationSuccess" element={<ReservationSuccess />} />
+          <Route path="*" element={<NoMatch />} />
         </Routes>
       </BrowserRouter>
     </FilterProvider>
