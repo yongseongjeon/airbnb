@@ -15,10 +15,10 @@ function AccommodationProvider({ children }) {
   const { low, high } = priceSlider.price;
   const { adult, child, infant } = guest;
 
-  useEffect(filterAccommodations, [schedule, priceSlider, guest]);
+  useEffect(filterAccommodations, []);
 
   return (
-    <AccommodationContext.Provider value={{ accommodations }}>
+    <AccommodationContext.Provider value={{ accommodations, filterAccommodations }}>
       {children}
     </AccommodationContext.Provider>
   );
