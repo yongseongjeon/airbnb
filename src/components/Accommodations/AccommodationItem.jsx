@@ -40,7 +40,6 @@ function AccommodationItem({ imageURL, name, option, price, grade, reviewCnt }) 
 }
 
 const Wrap = styled.div`
-  width: 684px;
   display: flex;
   padding-bottom: 24px;
   border-bottom: 1px solid ${COLOR.GREY[200]};
@@ -52,7 +51,7 @@ const Wrap = styled.div`
 `;
 
 const Contents = styled.div`
-  width: 310px;
+  width: 100%;
   position: relative;
 `;
 
