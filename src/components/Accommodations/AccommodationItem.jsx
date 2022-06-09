@@ -2,10 +2,22 @@ import styled from 'styled-components';
 import IconButton from 'components/IconButton';
 import FONT from 'styles/font';
 import COLOR from 'styles/colors';
+import { useContext } from 'react';
+import { ReservationContext } from 'store/ReservationContext';
 
 function AccommodationItem({ imageURL, name, option, price, grade, reviewCnt }) {
+  const { setIsActiveReservationModal, setReservationInfomation } = useContext(ReservationContext);
+  const reservationInfomation = {
+    price,
+    reviewCnt,
+  };
   return (
-    <Wrap>
+    <Wrap
+      onClick={() => {
+        setIsActiveReservationModal(true);
+        setReservationInfomation(reservationInfomation);
+      }}
+    >
       <Thumbnail src={imageURL} />
       <Contents>
         <Local>인천광역시</Local>
@@ -44,7 +56,7 @@ const Wrap = styled.div`
   padding-bottom: 24px;
   border-bottom: 1px solid ${COLOR.GREY[200]};
   gap: 24px;
-
+  cursor: pointer;
   &:last-child {
     border-bottom: none;
   }
