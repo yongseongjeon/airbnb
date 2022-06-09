@@ -25,7 +25,7 @@ function Header() {
     <HeaderContainer pathname={pathname}>
       <Inner pathname={pathname}>
         {isSpreadSearchBar ? (
-          <DefaultSearchBarContainer />
+          <DefaultSearchBarContainer setSpreadSearchBar={setSpreadSearchBar} />
         ) : (
           <MiniSearchBarContainer setSpreadSearchBar={setSpreadSearchBar} />
         )}
@@ -34,7 +34,7 @@ function Header() {
   );
 }
 
-function DefaultSearchBarContainer() {
+function DefaultSearchBarContainer({ setSpreadSearchBar }) {
   return (
     <>
       <MainBar>
@@ -44,7 +44,7 @@ function DefaultSearchBarContainer() {
         <GNB />
         <AccountMenu />
       </MainBar>
-      <SearchBar />
+      <SearchBar setSpreadSearchBar={setSpreadSearchBar} />
     </>
   );
 }

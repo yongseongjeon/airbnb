@@ -1,5 +1,5 @@
 function ReservationSuccess() {
-  return <div>ReservationSuccess page.</div>;
+  return <h1>ReservationSuccess page.</h1>;
 }
 
 export default ReservationSuccess;
