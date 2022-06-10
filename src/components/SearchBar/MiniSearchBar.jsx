@@ -47,9 +47,10 @@ function MiniSearchBar({ setSpreadSearchBar }) {
 
   function setDefaultSchedule() {
     if (checkIn && checkOut) return;
-    const TODAY_YEAR = new Date().getFullYear();
-    const TODAY_MONTH = new Date().getMonth() + 1;
-    const TODAY_DATE = new Date().getDate();
+    const date = new Date();
+    const TODAY_YEAR = date.getFullYear();
+    const TODAY_MONTH = date.getMonth() + 1;
+    const TODAY_DATE = date.getDate();
 
     scheduleDispatch({
       type: 'SET_CHECK_IN',
